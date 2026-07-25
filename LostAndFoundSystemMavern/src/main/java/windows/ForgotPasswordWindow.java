@@ -152,7 +152,7 @@ public class ForgotPasswordWindow extends JFrame {
 
         JOptionPane.showMessageDialog(this, "Password updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         dispose();
-        new ProfileWindow().setVisible(true);
+        new LogInWindow().setVisible(true);
     }
 }
 
