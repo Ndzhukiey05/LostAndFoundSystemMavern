@@ -133,7 +133,7 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
                 dispose();
             }
         });
-        
+
         btnReportFoundItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,7 +142,7 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
                 dispose();
             }
         });
-        
+
         btnViewAllPosts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -151,7 +151,7 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
                 dispose();
             }
         });
-        
+
         btnClaims.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -160,7 +160,7 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
                 dispose();
             }
         });
-        
+
         btnHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,8 +169,17 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
                 dispose();
             }
         });
-        
-        
+
+        profile.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        profile.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                ProfileWindow profileWindow = new ProfileWindow();
+                profileWindow.setVisible(true);
+                dispose(); // Closes the Dashboard
+            }
+        });
 
         JButton logout = new JButton("Logout");
         logout.setFocusPainted(false);

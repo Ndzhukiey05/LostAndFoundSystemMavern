@@ -51,6 +51,17 @@ public class ProfileWindow extends JFrame {
         lblLogo.setBorder(new EmptyBorder(5, 5, 20, 5));
         navPanel.add(lblLogo);
 
+        lblLogo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                ProfileWindow profileWindow = new ProfileWindow();
+                profileWindow.setVisible(true);
+                dispose(); // Closes the Dashboard
+            }
+        });
+
         navPanel.add(createSidebarButton("Report Lost Item", Icons.LostItem, e -> {
             dispose();
             new ReportLostItemWindow().setVisible(true);
@@ -213,17 +224,3 @@ public class ProfileWindow extends JFrame {
         return img;
     }
 }
-
-//    private void guiSetUp() {
-//
-//        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-//        northPanel.add(title);
-//
-//        setLayout(new BorderLayout());
-//        add(northPanel, BorderLayout.NORTH);
-//
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        setLocationRelativeTo(null);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setVisible(true);
-//    }
