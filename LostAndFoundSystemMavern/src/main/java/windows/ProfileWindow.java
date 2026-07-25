@@ -20,15 +20,16 @@ public class ProfileWindow extends JFrame {
 //    private JPanel northPanel;
 //    private JLabel title;
     public ProfileWindow() {
-
-//        title = new JLabel("Profile Window");
-//        northPanel = new JPanel();
-//
-//        guiSetUp();
+        //        title = new JLabel("Profile Window");
+        //        northPanel = new JPanel();
+        //
+        //        guiSetUp();
         setTitle("Profile Window");
-        setSize(950, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+
+        // Full screen setup
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(950, 600));
 
         JPanel rootPanel = new JPanel(new BorderLayout());
         rootPanel.setBackground(Colors.MAIN_BACKGROUND_COLOR);
@@ -36,7 +37,7 @@ public class ProfileWindow extends JFrame {
 
         // Sidebar
         UIComponents.RoundedPanel sidebar = new UIComponents.RoundedPanel(20, Colors.SIDEBAR_COLOR);
-        sidebar.setPreferredSize(new Dimension(200, 0));
+        sidebar.setPreferredSize(new Dimension(220, 0));
         sidebar.setLayout(new BorderLayout());
         sidebar.setBorder(new EmptyBorder(15, 15, 15, 15));
 
@@ -45,29 +46,46 @@ public class ProfileWindow extends JFrame {
         navPanel.setOpaque(false);
 
         JLabel lblLogo = new JLabel("PROFILE");
-        lblLogo.setFont(Fonts.Bold.deriveFont(18f));
+        lblLogo.setFont(Fonts.Bold != null ? Fonts.Bold.deriveFont(18f) : new Font("SansSerif", Font.BOLD, 18));
         lblLogo.setForeground(Colors.DARK_BLUE_TEXT_COLOR);
         lblLogo.setBorder(new EmptyBorder(5, 5, 20, 5));
         navPanel.add(lblLogo);
 
-        navPanel.add(createSidebarButton("Report Lost Item", Icons.LostItem));
-        navPanel.add(createSidebarButton("Report Found Item", Icons.FoundItem));
-        navPanel.add(createSidebarButton("View All Posts", Icons.ViewAllPosts));
-        navPanel.add(createSidebarButton("Claims", Icons.Claims));
-        navPanel.add(createSidebarButton("Help", Icons.Claims));
+        navPanel.add(createSidebarButton("Report Lost Item", Icons.LostItem, e -> {
+            dispose();
+            new ReportLostItemWindow().setVisible(true);
+        }));
+
+        navPanel.add(createSidebarButton("Report Found Item", Icons.FoundItem, e -> {
+            dispose();
+            new ReportFoundItemWindow().setVisible(true);
+        }));
+
+        navPanel.add(createSidebarButton("View All Posts", Icons.ViewAllPosts, e -> {
+            dispose();
+            new ViewAllPostsWindow().setVisible(true);
+        }));
+
+        navPanel.add(createSidebarButton("Claims", Icons.Claims, e -> {
+            dispose();
+            new ClaimWindow().setVisible(true);
+        }));
+
+        navPanel.add(createSidebarButton("Help", Icons.Claims, e -> {
+            dispose();
+            new HelpWindow().setVisible(true);
+        }));
 
         sidebar.add(navPanel, BorderLayout.CENTER);
 
         JButton btnLogout = new JButton("Logout", Icons.Home);
-        btnLogout.setFont(Fonts.SemiBold.deriveFont(13f));
+        btnLogout.setFont(Fonts.SemiBold != null ? Fonts.SemiBold.deriveFont(13f) : new Font("SansSerif", Font.PLAIN, 13));
         btnLogout.setFocusPainted(false);
         btnLogout.setContentAreaFilled(false);
         btnLogout.setBorderPainted(false);
         btnLogout.setHorizontalAlignment(SwingConstants.LEFT);
         btnLogout.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnLogout.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Logged out.");
-        });
+        btnLogout.addActionListener(e -> JOptionPane.showMessageDialog(this, "Logged out."));
         sidebar.add(btnLogout, BorderLayout.SOUTH);
 
         // Right Main Panel
@@ -82,7 +100,7 @@ public class ProfileWindow extends JFrame {
         header.setBorder(new EmptyBorder(5, 15, 5, 15));
 
         JLabel lblHeaderTitle = new JLabel("PROFILE");
-        lblHeaderTitle.setFont(Fonts.Bold.deriveFont(16f));
+        lblHeaderTitle.setFont(Fonts.Bold != null ? Fonts.Bold.deriveFont(16f) : new Font("SansSerif", Font.BOLD, 16));
         lblHeaderTitle.setForeground(Colors.DARK_BLUE_TEXT_COLOR);
 
         JPanel iconGroup = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
@@ -118,27 +136,33 @@ public class ProfileWindow extends JFrame {
         gbc.gridy = 0;
         cardPanel.add(lblAvatar, gbc);
 
-        // Edit Profile Button
+        // Edit Profile Button (Wider size so text displays fully + disposes current window)
         UIComponents.RoundedButton btnEditProfile = new UIComponents.RoundedButton("Edit Profile", Colors.BLUE_BUTTON_COLOR, Colors.WHITE_TEXT_COLOR, 15);
-        btnEditProfile.setPreferredSize(new Dimension(100, 30));
-        btnEditProfile.addActionListener(e -> new EditProfileWindow().setVisible(true));
+        btnEditProfile.setPreferredSize(new Dimension(130, 32));
+        btnEditProfile.addActionListener(e -> {
+            dispose(); // Dispose current ProfileWindow
+            new EditProfileWindow().setVisible(true);
+        });
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.NONE;
         cardPanel.add(btnEditProfile, gbc);
 
-        // Info Displays
+        // Info Displays (Updated placeholders)
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = 2;
-        cardPanel.add(createReadOnlyField("John Doe"), gbc);
+        cardPanel.add(createReadOnlyField("Your Full Name"), gbc);
         gbc.gridy = 3;
-        cardPanel.add(createReadOnlyField("johndoe123@gmail.com"), gbc);
+        cardPanel.add(createReadOnlyField("Email Address"), gbc);
         gbc.gridy = 4;
-        cardPanel.add(createReadOnlyField("Student"), gbc);
+        cardPanel.add(createReadOnlyField("Your Role"), gbc);
 
-        // Change Password Button
+        // Change Password Button (Directs to ChangePasswordWindow)
         UIComponents.RoundedButton btnChangePass = new UIComponents.RoundedButton("Change Password?", Colors.WHITE_TEXT_COLOR, Colors.BLACK_TEXT_COLOR, 15);
         btnChangePass.setPreferredSize(new Dimension(220, 35));
-        //btnChangePass.addActionListener(e -> new ChangePasswordWindow().setVisible(true));
+        btnChangePass.addActionListener(e -> {
+            dispose();
+            //new ChangePasswordWindow().setVisible(true);
+        });
         gbc.gridy = 5;
         cardPanel.add(btnChangePass, gbc);
 
@@ -151,9 +175,9 @@ public class ProfileWindow extends JFrame {
         add(rootPanel);
     }
 
-    private JButton createSidebarButton(String title, Icon icon) {
+    private JButton createSidebarButton(String title, Icon icon, java.awt.event.ActionListener action) {
         JButton btn = new JButton(title, icon);
-        btn.setFont(Fonts.Regular.deriveFont(13f));
+        btn.setFont(Fonts.Regular != null ? Fonts.Regular.deriveFont(13f) : new Font("SansSerif", Font.PLAIN, 13));
         btn.setAlignmentX(Component.LEFT_ALIGNMENT);
         btn.setFocusPainted(false);
         btn.setContentAreaFilled(false);
@@ -161,6 +185,9 @@ public class ProfileWindow extends JFrame {
         btn.setHorizontalAlignment(SwingConstants.LEFT);
         btn.setMaximumSize(new Dimension(180, 35));
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        if (action != null) {
+            btn.addActionListener(action);
+        }
         return btn;
     }
 

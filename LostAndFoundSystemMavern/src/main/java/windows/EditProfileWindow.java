@@ -34,9 +34,11 @@ public class EditProfileWindow extends JFrame {
 //
 //        guiSetUp();
         setTitle("Edit Profile Window");
-        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+
+        // Full screen setup
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(800, 600));
 
         JPanel mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(Colors.MAIN_BACKGROUND_COLOR);
@@ -45,7 +47,7 @@ public class EditProfileWindow extends JFrame {
 
         // Title
         JLabel lblTitle = new JLabel("EDIT PROFILE");
-        lblTitle.setFont(Fonts.Bold.deriveFont(22f));
+        lblTitle.setFont(Fonts.Bold != null ? Fonts.Bold.deriveFont(22f) : new Font("SansSerif", Font.BOLD, 22));
         lblTitle.setForeground(Colors.WHITE_TEXT_COLOR);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -95,12 +97,12 @@ public class EditProfileWindow extends JFrame {
             "Select Question...",
             "What is your pet's name?",
             "What is your mother's maiden name?",
-            "What was your first school name?"
+            "What was your first school's name?"
         };
         cbSecurityQuestions = new JComboBox<>(questions);
         cbSecurityQuestions.setPreferredSize(new Dimension(210, 30));
         cbSecurityQuestions.setBackground(Color.WHITE);
-        cbSecurityQuestions.setFont(Fonts.Regular.deriveFont(12f));
+        cbSecurityQuestions.setFont(Fonts.Regular != null ? Fonts.Regular.deriveFont(12f) : new Font("SansSerif", Font.PLAIN, 12));
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
         mainPanel.add(cbSecurityQuestions, gbc);
@@ -111,7 +113,7 @@ public class EditProfileWindow extends JFrame {
         uploadPanel.setLayout(new GridBagLayout());
 
         JButton btnUpload = new JButton(" Upload Image");
-        btnUpload.setFont(Fonts.Medium.deriveFont(13f));
+        btnUpload.setFont(Fonts.Medium != null ? Fonts.Medium.deriveFont(13f) : new Font("SansSerif", Font.PLAIN, 13));
         btnUpload.setFocusPainted(false);
         btnUpload.setContentAreaFilled(false);
         btnUpload.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -132,7 +134,10 @@ public class EditProfileWindow extends JFrame {
 
         UIComponents.RoundedButton btnCancel = new UIComponents.RoundedButton("Cancel", Colors.BLACK_BUTTON_COLOR, Colors.WHITE_TEXT_COLOR, 20);
         btnCancel.setPreferredSize(new Dimension(100, 35));
-        btnCancel.addActionListener(e -> dispose());
+        btnCancel.addActionListener(e -> {
+            dispose();
+            new ProfileWindow().setVisible(true);
+        });
 
         UIComponents.RoundedButton btnSave = new UIComponents.RoundedButton("Save Changes", Colors.WHITE_TEXT_COLOR, Colors.BLACK_TEXT_COLOR, 20);
         btnSave.setPreferredSize(new Dimension(130, 35));
@@ -151,7 +156,7 @@ public class EditProfileWindow extends JFrame {
 
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(Fonts.Medium.deriveFont(14f));
+        label.setFont(Fonts.Medium != null ? Fonts.Medium.deriveFont(14f) : new Font("SansSerif", Font.PLAIN, 14));
         label.setForeground(Colors.WHITE_TEXT_COLOR);
         return label;
     }
@@ -187,7 +192,10 @@ public class EditProfileWindow extends JFrame {
         }
 
         JOptionPane.showMessageDialog(this, "Profile updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        // Dispose EditProfileWindow and re-open ProfileWindow
         dispose();
+        new ProfileWindow().setVisible(true);
     }
 }
 
