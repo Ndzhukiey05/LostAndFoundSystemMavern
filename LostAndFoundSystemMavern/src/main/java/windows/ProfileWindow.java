@@ -26,7 +26,7 @@ public class ProfileWindow extends JFrame {
         //        guiSetUp();
         setTitle("Profile Window");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        setVisible(true);
         // Full screen setup
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(950, 600));
