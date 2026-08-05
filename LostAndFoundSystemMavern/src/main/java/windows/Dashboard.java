@@ -2,6 +2,7 @@ package windows;
 
 import constants.Fonts;
 import constants.Icons;
+import constants.Colors;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,7 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
     private JLabel lblTitle;
 
     private final Object[][] claimData = {
-        {"iPhone 11", "23-Jan-2026", "Pending", Color.ORANGE},
+        {"iPhone 11", "23-Jan-2026", "Pending", Colors.YELLOW_STATUS_COLOR},
         {"Student Card", "28-Jan-2026", "Approved", new Color(30, 180, 60)},
         {"Laptop", "02-Feb-2026", "Rejected", Color.RED}
     };
@@ -75,15 +76,15 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
         menu.setOpaque(false);
         menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 
-        String[] items = {
-            "Report Lost Item",
-            "Report Found Item",
-            "View All Posts",
-            "Claims",
-            "Help"
-        };
+//        String[] items = {
+//            "Report Lost Item",
+//            "Report Found Item",
+//            "View All Posts",
+//            "Claims",
+//            "Help"
+//        };
 
-//        for (String btnName : items) {
+//        for (String btnName : items) (WAS ITERATING THROUGH A BUTTON CLASS)
         JButton btnReportLostItem = new JButton("Report Lost Item");
         btnReportLostItem.setFocusPainted(false);
         btnReportLostItem.setBorderPainted(false);

@@ -325,7 +325,7 @@ public class ReportLostItemWindow extends JFrame implements ActionListener, Mous
 
         if (e.getSource() == profileBtn) {
             new ProfileWindow();
-        }
+        } else 
 
         if (e.getSource() == helpBtn) {
             new HelpWindow();
@@ -345,7 +345,6 @@ public class ReportLostItemWindow extends JFrame implements ActionListener, Mous
 
         if (e.getSource() == logoutBtn) {
             new LogInWindow();
-
             JOptionPane.showMessageDialog(this, "Loging out...");
         }
 
