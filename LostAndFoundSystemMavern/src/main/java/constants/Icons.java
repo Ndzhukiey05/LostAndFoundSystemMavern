@@ -15,6 +15,9 @@ public class Icons {
     public static ImageIcon Claims;
     public static ImageIcon ViewAllPosts;
     public static ImageIcon Bell;
+    public static ImageIcon Help;
+    public static ImageIcon Exit;
+    
 
     static {
         Home = loadIcon("/icons/home.png");
@@ -25,6 +28,9 @@ public class Icons {
         Claims = loadIcon("/icons/help.png");
         ViewAllPosts = loadIcon("/icons/view-all-posts.png");
         Bell = loadIcon("/icons/bell.png");
+        Help = loadIcon("/icons/help.png");
+        Exit = loadIcon("/icons/exit.png");
+        
     }
 
     private static ImageIcon loadIcon(String path) {
