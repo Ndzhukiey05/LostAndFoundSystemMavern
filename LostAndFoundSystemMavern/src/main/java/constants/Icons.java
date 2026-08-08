@@ -12,7 +12,7 @@ public class Icons {
     public static ImageIcon Filter;
     public static ImageIcon LostItem;
     public static ImageIcon FoundItem;
-    public static ImageIcon Claims;
+    public static ImageIcon Claim;
     public static ImageIcon ViewAllPosts;
     public static ImageIcon Bell;
     public static ImageIcon Help;
@@ -25,7 +25,7 @@ public class Icons {
         Filter = loadIcon("/icons/search.png"); // Replace when you have filter.png
         LostItem = loadIcon("/icons/lost-item.png");
         FoundItem = loadIcon("/icons/found-item.png");
-        Claims = loadIcon("/icons/help.png");
+        Claim = loadIcon("/icons/claims.png");
         ViewAllPosts = loadIcon("/icons/view-all-posts.png");
         Bell = loadIcon("/icons/bell.png");
         Help = loadIcon("/icons/help.png");

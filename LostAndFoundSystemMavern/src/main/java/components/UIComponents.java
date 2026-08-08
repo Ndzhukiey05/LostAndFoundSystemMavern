@@ -1,8 +1,6 @@
 package components;
 
 import constants.Colors;
-import constants.Colors;
-import constants.Fonts;
 import constants.Fonts;
 
 import javax.swing.*;
@@ -13,6 +11,7 @@ import java.awt.*;
  *
  * @author 240822757
  */
+
 public class UIComponents {
 
     public static class RoundedPanel extends JPanel {

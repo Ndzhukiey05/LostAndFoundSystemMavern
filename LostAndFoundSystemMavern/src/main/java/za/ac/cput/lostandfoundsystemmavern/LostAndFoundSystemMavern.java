@@ -4,10 +4,11 @@
 // LOST AND FOUND PROJECT SETUP COMPLETE
 package za.ac.cput.lostandfoundsystemmavern;
 import javax.swing.JFrame;
-import windows.LogInWindow;
+import windows.Dashboard;
 public class LostAndFoundSystemMavern {
     public static void main(String[] args) {
-        LogInWindow LogInGui = new LogInWindow();
+        //Entry Point set to DASHBOARD until ready for testing and bug fixes       
+        Dashboard LogInGui = new Dashboard();
         // FULLSCREEN             
         LogInGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // LogInGui.setSize(900, 600); 

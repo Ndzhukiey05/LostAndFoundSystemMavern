@@ -1,14 +1,26 @@
 // 221106901
+
 package windows;
 
+import components.PageHeaderPanel;
+import components.SideBarPanel;
+import components.UIComponents;
 import constants.Colors;
 import constants.Fonts;
-import constants.UIComponents;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-
 
 public class ClaimFormWindow extends JFrame {
 
@@ -19,105 +31,125 @@ public class ClaimFormWindow extends JFrame {
 
     private void guiSetUp() {
         setTitle("Campus Finder - Claim Form");
-        setSize(900, 700);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        JPanel backgroundPanel = new JPanel(new GridBagLayout());
-        backgroundPanel.setBackground(Colors.DARK_BLUE_TEXT_COLOR);
-        backgroundPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
-        setContentPane(backgroundPanel);
+        getContentPane().setBackground(new Color(73, 107, 145));
+        setLayout(new BorderLayout(15, 15));
 
-        JPanel mainContainer = new JPanel();
-        mainContainer.setLayout(new BoxLayout(mainContainer, BoxLayout.Y_AXIS));
-        mainContainer.setOpaque(false);
+        SideBarPanel sidebarPanel = new SideBarPanel();
 
-        //REMEMMBER YOU CHANGED THIS
-        // Wrapped lblTitle in a transparent FlowLayout panel to keep the F-ing Claim window centered
-        JLabel lblTitle = new JLabel("CLAIM FORM");
-        lblTitle.setFont(Fonts.Bold.deriveFont(22f));
-        lblTitle.setForeground(Colors.WHITE_TEXT_COLOR);
+        JPanel center = new JPanel(new BorderLayout(15, 15));
+        center.setOpaque(false);
 
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        titlePanel.setOpaque(false);
-        titlePanel.add(lblTitle);
+        PageHeaderPanel headerPanel = new PageHeaderPanel("CLAIM FORM");
 
-        mainContainer.add(titlePanel);
-        //REMEMBER THIS PART ABOVE
+        center.add(headerPanel, BorderLayout.NORTH);
+        center.add(createContentPanel(), BorderLayout.CENTER);
 
-        mainContainer.add(Box.createRigidArea(new Dimension(0, 15)));
+        add(sidebarPanel, BorderLayout.WEST);
+        add(center, BorderLayout.CENTER);
+
+        setVisible(true);
+    }
+
+    private JPanel createContentPanel() {
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.setBackground(new Color(220, 220, 220));
+        contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+        JLabel lblTitle = new JLabel("Submit a Claim");
+        lblTitle.setOpaque(true);
+        lblTitle.setBackground(new Color(40, 90, 255));
+        lblTitle.setForeground(Color.WHITE);
+        lblTitle.setFont(Fonts.Bold.deriveFont(16f));
+        lblTitle.setBorder(new EmptyBorder(8, 15, 8, 15));
+
+        contentPanel.add(lblTitle, BorderLayout.NORTH);
+
+        JPanel formArea = new JPanel(new GridBagLayout());
+        formArea.setBackground(new Color(220, 220, 220));
 
         UIComponents.RoundedPanel formCard = new UIComponents.RoundedPanel(25, Colors.MOCKUP_FORM_CARD_BG);
         formCard.setLayout(new BoxLayout(formCard, BoxLayout.Y_AXIS));
         formCard.setBorder(new EmptyBorder(30, 45, 30, 45));
-        formCard.setPreferredSize(new Dimension(500, 520));
+        formCard.setPreferredSize(new Dimension(600, 500));
+        formCard.setMaximumSize(new Dimension(650, 520));
 
-        // Field 1: Description
         JLabel lblDescription = new JLabel("Description :");
         lblDescription.setFont(Fonts.Bold.deriveFont(14f));
         lblDescription.setForeground(Colors.BLACK_TEXT_COLOR);
-        lblDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblDescription.setAlignmentX(LEFT_ALIGNMENT);
 
-        JTextArea txtDescription = new JTextArea("Exact Description\n(include unique markings)");
+        JTextArea txtDescription = new JTextArea();
         txtDescription.setFont(Fonts.Regular.deriveFont(13f));
         txtDescription.setForeground(Colors.DASHBOARD_BACKGROUND_COLOR);
         txtDescription.setLineWrap(true);
         txtDescription.setWrapStyleWord(true);
         txtDescription.setBorder(new EmptyBorder(12, 12, 12, 12));
+        txtDescription.setText("Exact Description\n(include unique markings)");
 
         UIComponents.RoundedPanel descriptionWrapper = new UIComponents.RoundedPanel(15, Colors.LOGIN_BACKGROUND_COLOR);
         descriptionWrapper.setLayout(new BorderLayout());
         descriptionWrapper.add(txtDescription, BorderLayout.CENTER);
-        descriptionWrapper.setMaximumSize(new Dimension(410, 90));
-        descriptionWrapper.setAlignmentX(Component.LEFT_ALIGNMENT);
+        descriptionWrapper.setMaximumSize(new Dimension(500, 90));
+        descriptionWrapper.setAlignmentX(LEFT_ALIGNMENT);
 
-        // Field 2: Location
         JLabel lblLocation = new JLabel("Location Details :");
         lblLocation.setFont(Fonts.Bold.deriveFont(14f));
         lblLocation.setForeground(Colors.BLACK_TEXT_COLOR);
-        lblLocation.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblLocation.setAlignmentX(LEFT_ALIGNMENT);
 
         UIComponents.RoundedTextField txtLocation = new UIComponents.RoundedTextField(20);
-        txtLocation.setMaximumSize(new Dimension(410, 38));
-        txtLocation.setAlignmentX(Component.LEFT_ALIGNMENT);
+        txtLocation.setMaximumSize(new Dimension(500, 38));
+        txtLocation.setAlignmentX(LEFT_ALIGNMENT);
 
-        // Field 3: Date/Time
         JLabel lblDateTime = new JLabel("Date/Time :");
         lblDateTime.setFont(Fonts.Bold.deriveFont(14f));
         lblDateTime.setForeground(Colors.BLACK_TEXT_COLOR);
-        lblDateTime.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblDateTime.setAlignmentX(LEFT_ALIGNMENT);
 
         UIComponents.RoundedTextField txtDateTime = new UIComponents.RoundedTextField(20);
-        txtDateTime.setMaximumSize(new Dimension(410, 38));
-        txtDateTime.setAlignmentX(Component.LEFT_ALIGNMENT);
+        txtDateTime.setMaximumSize(new Dimension(500, 38));
+        txtDateTime.setAlignmentX(LEFT_ALIGNMENT);
 
-        // Field 4: Contact Details
         JLabel lblContact = new JLabel("Contact Details :");
         lblContact.setFont(Fonts.Bold.deriveFont(14f));
         lblContact.setForeground(Colors.BLACK_TEXT_COLOR);
-        lblContact.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblContact.setAlignmentX(LEFT_ALIGNMENT);
 
         UIComponents.RoundedTextField txtContact = new UIComponents.RoundedTextField(20);
-        txtContact.setMaximumSize(new Dimension(410, 38));
-        txtContact.setAlignmentX(Component.LEFT_ALIGNMENT);
+        txtContact.setMaximumSize(new Dimension(500, 38));
+        txtContact.setAlignmentX(LEFT_ALIGNMENT);
 
-        // Action Buttons NOT WORKING GUYS DUMMY BUTS
-        JPanel buttonsRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 0));
+        JPanel buttonsRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonsRow.setOpaque(false);
-        buttonsRow.setAlignmentX(Component.LEFT_ALIGNMENT);
-        buttonsRow.setMaximumSize(new Dimension(410, 45));
+        buttonsRow.setAlignmentX(LEFT_ALIGNMENT);
 
-        
-    // I did not make the claim and back btn work
         UIComponents.RoundedButton btnBack = new UIComponents.RoundedButton("Back", Colors.BLACK_BUTTON_COLOR, Colors.WHITE_TEXT_COLOR, 20);
         UIComponents.RoundedButton btnClaim = new UIComponents.RoundedButton("Claim", Colors.ACCENT_BLUE_BUTTON, Colors.WHITE_TEXT_COLOR, 20);
 
         btnBack.setPreferredSize(new Dimension(125, 38));
         btnClaim.setPreferredSize(new Dimension(125, 38));
 
-        btnBack.addActionListener(e -> {});
-        btnClaim.addActionListener(e -> {});
-    // ------------------------------------------------------------------------------------------------------------------
+        btnBack.addActionListener(e -> {
+            new ClaimWindow();
+            dispose();
+        });
+
+        btnClaim.addActionListener(e -> {
+            if (txtLocation.getText().trim().isEmpty() || txtDateTime.getText().trim().isEmpty() || txtContact.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please complete all fields.", "Incomplete Form", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            JOptionPane.showMessageDialog(this, "Claim submitted successfully!", "Claim Submitted", JOptionPane.INFORMATION_MESSAGE);
+
+            new ClaimWindow();
+            dispose();
+        });
+
         buttonsRow.add(btnBack);
         buttonsRow.add(btnClaim);
 
@@ -143,14 +175,10 @@ public class ClaimFormWindow extends JFrame {
 
         formCard.add(buttonsRow);
 
-        mainContainer.add(formCard);
-        backgroundPanel.add(mainContainer);
+        formArea.add(formCard);
 
-        setVisible(true);
+        contentPanel.add(formArea, BorderLayout.CENTER);
+
+        return contentPanel;
     }
-/* This just to view this page only
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(ClaimFormWindow::new);
-    }*/
-    
 }
