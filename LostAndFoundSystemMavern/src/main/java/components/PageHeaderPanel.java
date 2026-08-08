@@ -1,11 +1,11 @@
 package components;
 
-
 import constants.Colors;
 import constants.Fonts;
 import constants.Icons;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
@@ -13,6 +13,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import windows.Dashboard;
+import windows.NotificationsWindow;
+import windows.ViewAllPostsWindow;
 
 public class PageHeaderPanel extends JPanel {
 
@@ -45,21 +49,24 @@ public class PageHeaderPanel extends JPanel {
         navigationPanel = new JPanel(new BorderLayout());
         navigationPanel.setBackground(Color.WHITE);
         navigationPanel.setPreferredSize(new Dimension(0, 55));
-        
+
         btnHome = new JButton(Icons.Home);
         btnHome.setContentAreaFilled(false);
         btnHome.setBorderPainted(false);
         btnHome.setFocusPainted(false);
+        btnHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         btnSearch = new JButton(Icons.Search);
         btnSearch.setContentAreaFilled(false);
         btnSearch.setBorderPainted(false);
         btnSearch.setFocusPainted(false);
+        btnSearch.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         btnNotification = new JButton(Icons.Bell);
         btnNotification.setContentAreaFilled(false);
         btnNotification.setBorderPainted(false);
         btnNotification.setFocusPainted(false);
+        btnNotification.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         txtSearch = new JTextField();
         txtSearch.setPreferredSize(new Dimension(250, 35));
@@ -82,6 +89,61 @@ public class PageHeaderPanel extends JPanel {
 
         add(titlePanel, BorderLayout.NORTH);
         add(navigationPanel, BorderLayout.CENTER);
+
+        addButtonActions();
+    }
+
+
+        private void addButtonActions() {
+
+    btnHome.addActionListener(e -> {
+
+        new Dashboard();
+
+        java.awt.Window window =
+                SwingUtilities.getWindowAncestor(this);
+
+        if (window != null) {
+            window.dispose();
+        }
+    });
+
+    btnSearch.addActionListener(e -> {
+
+        new ViewAllPostsWindow();
+
+        java.awt.Window window =
+                SwingUtilities.getWindowAncestor(this);
+
+        if (window != null) {
+            window.dispose();
+        }
+    });
+
+    btnNotification.addActionListener(e -> {
+
+        new NotificationsWindow();
+
+        java.awt.Window window =
+                SwingUtilities.getWindowAncestor(this);
+
+        if (window != null) {
+            window.dispose();
+        }
+    });
+
+    txtSearch.addActionListener(e -> {
+
+        new ViewAllPostsWindow();
+
+        java.awt.Window window =
+                SwingUtilities.getWindowAncestor(this);
+
+        if (window != null) {
+            window.dispose();
+        }
+    });
+
     }
 
     public JButton getBtnHome() {

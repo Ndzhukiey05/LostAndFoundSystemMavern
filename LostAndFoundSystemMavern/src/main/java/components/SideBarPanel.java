@@ -1,7 +1,4 @@
-/**
- *
- * 230939023
- */
+// 230939023
 package components;
 
 import constants.Colors;
