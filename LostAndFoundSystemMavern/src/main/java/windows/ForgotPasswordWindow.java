@@ -102,7 +102,7 @@ public class ForgotPasswordWindow extends JFrame {
         btnCancel.setPreferredSize(new Dimension(110, 35));
         btnCancel.addActionListener(e -> {
             dispose();
-            new LogInWindow().setVisible(true);
+            new ProfileWindow().setVisible(true);
         });
 
         UIComponents.RoundedButton btnSave = new UIComponents.RoundedButton("Save Changes", Colors.WHITE_TEXT_COLOR, Colors.BLACK_TEXT_COLOR, 20);
@@ -155,16 +155,3 @@ public class ForgotPasswordWindow extends JFrame {
         new LogInWindow().setVisible(true);
     }
 }
-
-//    private void guiSetUp() {
-//
-//        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-//        northPanel.add(title);
-//
-//        setLayout(new BorderLayout());
-//        add(northPanel, BorderLayout.NORTH);
-//
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        setLocationRelativeTo(null);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setVisible(true);

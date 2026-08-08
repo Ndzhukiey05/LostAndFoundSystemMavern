@@ -1,15 +1,25 @@
 // 221106901
 package windows;
 
+import components.UIComponents;
 import constants.Colors;
 import constants.Fonts;
 import constants.Icons;
-import components.UIComponents;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import javax.swing.Box;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-
 
 public class ItemDetailsWindow extends JFrame {
 
@@ -19,8 +29,9 @@ public class ItemDetailsWindow extends JFrame {
     }
 
     private void guiSetUp() {
+
         setTitle("Campus Finder - Item Details");
-        setSize(900, 750);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -30,7 +41,7 @@ public class ItemDetailsWindow extends JFrame {
         setContentPane(backgroundPanel);
 
         JPanel mainContainer = new JPanel();
-        mainContainer.setLayout(new BoxLayout(mainContainer, BoxLayout.Y_AXIS));
+        mainContainer.setLayout(new javax.swing.BoxLayout(mainContainer, javax.swing.BoxLayout.Y_AXIS));
         mainContainer.setOpaque(false);
         mainContainer.setPreferredSize(new Dimension(450, 650));
 
@@ -42,7 +53,6 @@ public class ItemDetailsWindow extends JFrame {
         mainContainer.add(lblTitle);
         mainContainer.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        // Item Name
         JLabel lblItemName = new JLabel("Item Name");
         styleSectionLabel(lblItemName);
 
@@ -55,7 +65,6 @@ public class ItemDetailsWindow extends JFrame {
         mainContainer.add(txtItemName);
         mainContainer.add(Box.createRigidArea(new Dimension(0, 12)));
 
-        // Category
         JLabel lblCategory = new JLabel("Category");
         styleSectionLabel(lblCategory);
 
@@ -68,18 +77,27 @@ public class ItemDetailsWindow extends JFrame {
         mainContainer.add(txtCategory);
         mainContainer.add(Box.createRigidArea(new Dimension(0, 12)));
 
-        // Image Display
         JLabel lblImage = new JLabel("Image");
         styleSectionLabel(lblImage);
 
-        UIComponents.RoundedPanel imagePanel = new UIComponents.RoundedPanel(20, Colors.LOGIN_BACKGROUND_COLOR);
-        imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
+        UIComponents.RoundedPanel imagePanel = new UIComponents.RoundedPanel(
+                20,
+                Colors.LOGIN_BACKGROUND_COLOR
+        );
+
+        imagePanel.setLayout(
+                new javax.swing.BoxLayout(
+                        imagePanel,
+                        javax.swing.BoxLayout.Y_AXIS
+                )
+        );
+
         imagePanel.setMaximumSize(new Dimension(400, 90));
         imagePanel.setPreferredSize(new Dimension(400, 90));
         imagePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         imagePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JLabel lblImageText = new JLabel("e.g emage display");
+        JLabel lblImageText = new JLabel("e.g image display");
         lblImageText.setFont(Fonts.Regular.deriveFont(12f));
         lblImageText.setForeground(Colors.DASHBOARD_BACKGROUND_COLOR);
         lblImageText.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -96,18 +114,25 @@ public class ItemDetailsWindow extends JFrame {
         mainContainer.add(imagePanel);
         mainContainer.add(Box.createRigidArea(new Dimension(0, 12)));
 
-        // Item Description
         JLabel lblDescription = new JLabel("Item Description");
         styleSectionLabel(lblDescription);
 
-        UIComponents.RoundedPanel descPanel = new UIComponents.RoundedPanel(20, Colors.LOGIN_BACKGROUND_COLOR);
+        UIComponents.RoundedPanel descPanel = new UIComponents.RoundedPanel(
+                20,
+                Colors.LOGIN_BACKGROUND_COLOR
+        );
+
         descPanel.setLayout(new BorderLayout());
         descPanel.setMaximumSize(new Dimension(400, 100));
         descPanel.setPreferredSize(new Dimension(400, 100));
         descPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         descPanel.setBorder(new EmptyBorder(15, 20, 15, 20));
 
-        JTextArea txtDescription = new JTextArea("e.g Description of unique and\nspecific contents about the Item");
+        JTextArea txtDescription = new JTextArea(
+                "e.g Description of unique and\n"
+                + "specific contents about the Item"
+        );
+
         txtDescription.setFont(Fonts.Regular.deriveFont(12f));
         txtDescription.setForeground(Colors.DASHBOARD_BACKGROUND_COLOR);
         txtDescription.setLineWrap(true);
@@ -122,7 +147,6 @@ public class ItemDetailsWindow extends JFrame {
         mainContainer.add(descPanel);
         mainContainer.add(Box.createRigidArea(new Dimension(0, 12)));
 
-        // Status
         JLabel lblStatus = new JLabel("Status");
         styleSectionLabel(lblStatus);
 
@@ -135,43 +159,53 @@ public class ItemDetailsWindow extends JFrame {
         mainContainer.add(txtStatus);
         mainContainer.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // Buttons
-        JPanel buttonsRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        JPanel buttonsRow = new JPanel(
+                new FlowLayout(
+                        FlowLayout.CENTER,
+                        20,
+                        0
+                )
+        );
+
         buttonsRow.setOpaque(false);
         buttonsRow.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        UIComponents.RoundedButton btnBack = new UIComponents.RoundedButton("Back", Colors.GREY_BUTTON_COLOR, Colors.BLACK_TEXT_COLOR, 20);
-        UIComponents.RoundedButton btnClaim = new UIComponents.RoundedButton("Claim", Colors.ACCENT_BLUE_BUTTON, Colors.WHITE_TEXT_COLOR, 20);
+        UIComponents.RoundedButton btnBack =
+                new UIComponents.RoundedButton(
+                        "Back",
+                        Colors.GREY_BUTTON_COLOR,
+                        Colors.BLACK_TEXT_COLOR,
+                        20
+                );
+
+        UIComponents.RoundedButton btnClaim =
+                new UIComponents.RoundedButton(
+                        "Claim",
+                        Colors.ACCENT_BLUE_BUTTON,
+                        Colors.WHITE_TEXT_COLOR,
+                        20
+                );
 
         btnBack.setPreferredSize(new Dimension(130, 38));
         btnClaim.setPreferredSize(new Dimension(130, 38));
 
-        
-        // making the btns work 
-        // Back Button -> Opens ClaimWindow and closes ItemDetailsWindow
         btnBack.addActionListener(e -> {
             new ClaimWindow();
             dispose();
         });
 
-        // Claim Button -> Opens ClaimFormWindow and closes ItemDetailsWindow
         btnClaim.addActionListener(e -> {
             new ClaimFormWindow();
             dispose();
         });
-        // above makes it happen
-        
-        
-   //---------------------------to make dummy Btns--------------------------------------------
-      //  btnBack.addActionListener(e -> {});
-      //  btnClaim.addActionListener(e -> {});
- //-----------------------------------------------------------------------------------
+
         buttonsRow.add(btnBack);
         buttonsRow.add(btnClaim);
 
         mainContainer.add(buttonsRow);
 
         backgroundPanel.add(mainContainer);
+
         setVisible(true);
     }
 
@@ -181,15 +215,19 @@ public class ItemDetailsWindow extends JFrame {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
-    private void styleCenteredTextField(UIComponents.RoundedTextField textField) {
+    private void styleCenteredTextField(
+            UIComponents.RoundedTextField textField
+    ) {
         textField.setHorizontalAlignment(JTextField.CENTER);
         textField.setForeground(Colors.DASHBOARD_BACKGROUND_COLOR);
         textField.setMaximumSize(new Dimension(400, 36));
         textField.setAlignmentX(Component.CENTER_ALIGNMENT);
         textField.setEditable(false);
     }
-/*just to view this page only
+
+    /*
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ItemDetailsWindow::new);
-    }*/
+    }
+    */
 }
