@@ -2,6 +2,7 @@
 package constants;
 import java.awt.Font;
 import java.io.InputStream;
+
 public class Fonts {
 
     public static Font Bold;

@@ -4,7 +4,7 @@ package windows;
 import constants.Colors;
 import constants.Fonts;
 import constants.Icons;
-import constants.UIComponents;
+import components.UIComponents;
 
 import java.awt.*;
 import javax.swing.*;

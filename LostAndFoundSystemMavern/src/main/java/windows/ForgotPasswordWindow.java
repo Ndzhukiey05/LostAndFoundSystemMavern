@@ -8,7 +8,7 @@ package windows;
 //import javax.swing.JPanel;
 import constants.Colors;
 import constants.Fonts;
-import constants.UIComponents;
+import components.UIComponents;
 
 import javax.swing.*;
 import java.awt.*;

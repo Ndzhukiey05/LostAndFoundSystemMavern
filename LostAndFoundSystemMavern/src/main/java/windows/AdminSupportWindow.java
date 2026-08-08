@@ -1,4 +1,5 @@
 //231323573
+
 package windows;
 
 import java.awt.*;
@@ -28,7 +29,12 @@ public class AdminSupportWindow extends JFrame {
 
     private void guiSetUp() {
 
-        Color background = new Color(79,113,146);
+        Color background = new Color(79, 113, 146);
+
+        setTitle("Campus Finder - Admin Support");
+        setSize(600, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         getContentPane().setBackground(background);
         setLayout(new GridBagLayout());
@@ -37,7 +43,8 @@ public class AdminSupportWindow extends JFrame {
         formPanel.setOpaque(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(8,8,8,8);
+
+        gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         lblTitle = new JLabel("Admin Support");
@@ -47,6 +54,7 @@ public class AdminSupportWindow extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
+
         formPanel.add(lblTitle, gbc);
 
         gbc.gridwidth = 1;
@@ -56,11 +64,13 @@ public class AdminSupportWindow extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 1;
+
         formPanel.add(lblName, gbc);
 
         txtName = new JTextField(15);
 
         gbc.gridx = 1;
+
         formPanel.add(txtName, gbc);
 
         lblStudentNo = new JLabel("Student/Staff Number:");
@@ -68,11 +78,13 @@ public class AdminSupportWindow extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
+
         formPanel.add(lblStudentNo, gbc);
 
         txtStudentNo = new JTextField(15);
 
         gbc.gridx = 1;
+
         formPanel.add(txtStudentNo, gbc);
 
         lblIssue = new JLabel("Issue Description:");
@@ -81,9 +93,10 @@ public class AdminSupportWindow extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.NORTHWEST;
+
         formPanel.add(lblIssue, gbc);
 
-        txtIssue = new JTextArea(5,15);
+        txtIssue = new JTextArea(5, 15);
         txtIssue.setLineWrap(true);
         txtIssue.setWrapStyleWord(true);
 
@@ -91,9 +104,17 @@ public class AdminSupportWindow extends JFrame {
 
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.BOTH;
+
         formPanel.add(scroll, gbc);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,20,0));
+        JPanel buttonPanel = new JPanel(
+                new FlowLayout(
+                        FlowLayout.CENTER,
+                        20,
+                        0
+                )
+        );
+
         buttonPanel.setOpaque(false);
 
         btnCancel = new JButton("Cancel");
@@ -114,13 +135,104 @@ public class AdminSupportWindow extends JFrame {
         gbc.gridy = 4;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
 
         formPanel.add(buttonPanel, gbc);
 
         add(formPanel);
 
+        btnCancel.addActionListener(e -> {
+
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to cancel?",
+                    "Cancel Support Request",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (result == JOptionPane.YES_OPTION) {
+
+                dispose();
+
+                new HelpWindow();
+            }
+        });
+
+        btnSubmit.addActionListener(e -> {
+
+            String name = txtName.getText().trim();
+            String studentNumber = txtStudentNo.getText().trim();
+            String issue = txtIssue.getText().trim();
+
+            if (name.isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Please enter your name.",
+                        "Missing Information",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                txtName.requestFocus();
+
+                return;
+            }
+
+            if (studentNumber.isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Please enter your Student/Staff Number.",
+                        "Missing Information",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                txtStudentNo.requestFocus();
+
+                return;
+            }
+
+            if (issue.isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Please describe your issue.",
+                        "Missing Information",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                txtIssue.requestFocus();
+
+                return;
+            }
+
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to submit this support request?",
+                    "Submit Support Request",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (result == JOptionPane.YES_OPTION) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Your support request has been submitted successfully.\n\n"
+                        + "An administrator will review your request.",
+                        "Support Request Submitted",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                txtName.setText("");
+                txtStudentNo.setText("");
+                txtIssue.setText("");
+
+                txtName.requestFocus();
+            }
+        });
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+
+        setVisible(true);
     }
 }

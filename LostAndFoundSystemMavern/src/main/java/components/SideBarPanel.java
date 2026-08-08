@@ -68,7 +68,7 @@ public class SideBarPanel extends JPanel {
 
         btnClaims = createMenuButton(
                 "Claims",
-                Icons.Help
+                Icons.Claim
         );
 
         btnHelp = createMenuButton(
