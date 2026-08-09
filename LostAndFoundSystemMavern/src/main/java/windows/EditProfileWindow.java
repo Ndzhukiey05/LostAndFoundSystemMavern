@@ -1,11 +1,6 @@
 //240822757
 package windows;
 
-//import java.awt.BorderLayout;
-//import java.awt.FlowLayout;
-//import javax.swing.JFrame;
-//import javax.swing.JLabel;
-//import javax.swing.JPanel;
 import constants.Colors;
 import constants.Fonts;
 import components.UIComponents;
