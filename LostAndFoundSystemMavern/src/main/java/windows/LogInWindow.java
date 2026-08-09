@@ -69,12 +69,10 @@ public class LogInWindow extends JFrame implements ActionListener, ItemListener 
 
     public void GuiSetup() {
 
-        // NORTH PANEL
         NorthPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         NorthPanel.add(title);
         NorthPanel.setBackground(Colors.LOGIN_BACKGROUND_COLOR);
 
-        // DETAILS PANEL
         DetailsPanel.setLayout(new GridLayout(8, 1, 10, 15));
         DetailsPanel.add(lblUsername);
         DetailsPanel.add(txtUsername);
@@ -86,12 +84,10 @@ public class LogInWindow extends JFrame implements ActionListener, ItemListener 
         DetailsPanel.add(btnForgotPassword);
         DetailsPanel.setBackground(Colors.LOGIN_BACKGROUND_COLOR);
 
-        // CENTER PANEL (Centers the DetailsPanel)
         CenterPanel.setLayout(new GridBagLayout());
         CenterPanel.add(DetailsPanel);
         CenterPanel.setBackground(Colors.LOGIN_BACKGROUND_COLOR);
 
-        // SOUTH PANEL
         SouthPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         SouthPanel.add(btnSignUp);
         SouthPanel.add(btnLogIn);
@@ -99,7 +95,6 @@ public class LogInWindow extends JFrame implements ActionListener, ItemListener 
 
         cboUserType.addItemListener(this);
 
-        //BUTTONS
         btnForgotPassword.addActionListener(this);
         btnSignUp.addActionListener(this);
         btnLogIn.addActionListener(this);
@@ -123,34 +118,29 @@ public class LogInWindow extends JFrame implements ActionListener, ItemListener 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // SIGN UP
         if (e.getSource() == btnSignUp) {
             SignUpWindow signUp = new SignUpWindow();
             signUp.setVisible(true);
             this.dispose();
         }
 
-        // FORGOT PASSWORD
         if (e.getSource() == btnForgotPassword) {
             ForgotPasswordWindow fpwindow = new ForgotPasswordWindow();
             fpwindow.setVisible(true);
             dispose();
         }
 
-        // LOG IN
         if (e.getSource() == btnLogIn) {
-
             String username = txtUsername.getText().trim();
             String password = new String(((JPasswordField) txtPassword).getPassword());
             String userType = cboUserType.getSelectedItem().toString();
 
-            // Validation
             if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter your username and password.", "Missing Information", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            // DATABASE LOGIN WILL GO HERE
+            // DATABASE LOGIC WILL GO HERE
             // Temporary login until database is connected
             JOptionPane.showMessageDialog(this, "Login Successful!");
             Dashboard dashbaord = new Dashboard();
