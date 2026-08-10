@@ -1,6 +1,6 @@
 //230939023
 
-package classes;
+package lostandfounfsystem.domain;
 
 public class Student extends Person {
     
