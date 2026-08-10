@@ -1,4 +1,4 @@
-package classes;
+package lostandfounfsystem.domain;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
