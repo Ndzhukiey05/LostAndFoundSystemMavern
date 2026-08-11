@@ -1,11 +1,12 @@
+package lostandfoundsystem.gui;
+
 // 230939023
 // WE EXPECT A USER TO LOG_IN OR SIGN_UP
 // THEREFORE WE USE THE LogInWindow AS OUR ENTRY POINT FOR THE APP
 // LOST AND FOUND PROJECT SETUP COMPLETE
-package lostandfoundsystemmavern.gui;
 import javax.swing.JFrame;
 import lostandfoundsystem.windows.Dashboard;
-public class LostAndFoundSystemMavern {
+public class LostAndFoundSystem {
     public static void main(String[] args) {
         //Entry Point set to DASHBOARD until ready for testing and bug fixes       
         Dashboard LogInGui = new Dashboard();

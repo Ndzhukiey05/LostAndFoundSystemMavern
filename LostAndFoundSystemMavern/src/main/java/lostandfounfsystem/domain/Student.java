@@ -2,7 +2,7 @@
 
 package lostandfounfsystem.domain;
 
-public class Student extends Person {
+public class Student extends User {
     
     private int studentId;
     private int studentNumber;
