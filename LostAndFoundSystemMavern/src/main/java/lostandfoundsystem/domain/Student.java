@@ -1,11 +1,10 @@
-package lostandfounfsystem.domain;
+package lostandfoundsystem.domain;
 
 //230939023
 
 public class Student extends User {
 
     private String studentNumber;
-    private String course;
 
     public Student() {
         super();
@@ -18,12 +17,10 @@ public class Student extends User {
             String password, 
             String secQuestion, 
             String secAnswer,
-            String studentNumber, 
-            String course
+            String studentNumber
     ) {
         super(personId, name, surname, password, secQuestion, secAnswer);
         this.studentNumber = studentNumber;
-        this.course = course;
     }
 
     public String getStudentNumber() {
@@ -34,13 +31,6 @@ public class Student extends User {
         this.studentNumber = studentNumber;
     }
 
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
 
     @Override
     public String toString() {
@@ -49,7 +39,6 @@ public class Student extends User {
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
                 ", studentNumber='" + studentNumber + '\'' +
-                ", course='" + course + '\'' +
                 '}';
     }
 }

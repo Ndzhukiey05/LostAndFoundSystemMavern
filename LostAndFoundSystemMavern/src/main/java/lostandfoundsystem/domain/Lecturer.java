@@ -1,4 +1,4 @@
-package lostandfounfsystem.domain;
+package lostandfoundsystem.domain;
 
 public class Lecturer extends Staff {
 

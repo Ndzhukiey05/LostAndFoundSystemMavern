@@ -1,4 +1,4 @@
-package lostandfounfsystem.domain;
+package lostandfoundsystem.domain;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
