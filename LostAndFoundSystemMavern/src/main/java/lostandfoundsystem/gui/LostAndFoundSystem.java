@@ -4,17 +4,15 @@ package lostandfoundsystem.gui;
 // THEREFORE WE USE THE LogInWindow AS OUR ENTRY POINT FOR THE APP
 // LOST AND FOUND PROJECT SETUP COMPLETE
 import javax.swing.JFrame;
-//import lostandfoundsystem.windows.Dashboard;
 import lostandfoundsystem.windows.LogInWindow;
 public class LostAndFoundSystem {
     public static void main(String[] args) {
-        //Entry Point set to DASHBOARD until ready for testing and bug fixes       
-        LogInWindow LogInGui = new LogInWindow();
-        // FULLSCREEN             
-        LogInGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // LogInGui.setSize(900, 600); 
-        LogInGui.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        LogInGui.setLocationRelativeTo(null);
-        LogInGui.setVisible(true);
+        // Entry point of the application
+        LogInWindow logInGui = new LogInWindow();
+        // FULLSCREEN
+        logInGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        logInGui.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        logInGui.setLocationRelativeTo(null);
+        logInGui.setVisible(true);
     }
 }

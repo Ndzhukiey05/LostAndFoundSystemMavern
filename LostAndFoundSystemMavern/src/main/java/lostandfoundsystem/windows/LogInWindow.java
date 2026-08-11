@@ -5,6 +5,7 @@ package lostandfoundsystem.windows;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 import lostandfoundsystem.dao.UserDAO;
+
 import lostandfoundsystem.domain.User;
 
 import javax.swing.*;
@@ -14,6 +15,8 @@ import java.awt.event.ActionListener;
 
 public class LogInWindow extends JFrame implements ActionListener {
 
+    private User currentUser;
+    
     private JLabel title, lblUsername, lblPassword, lblUserType, lblForgotPassword;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
@@ -22,6 +25,7 @@ public class LogInWindow extends JFrame implements ActionListener {
     private JPanel NorthPanel, DetailsPanel, CenterPanel, SouthPanel;
 
     public LogInWindow() {
+        
 
         super("Log In");
 
@@ -119,13 +123,13 @@ public class LogInWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btnSignUp) {
-            new SignUpWindow().setVisible(true);
+            new SignUpWindow(currentUser).setVisible(true);
             dispose();
             return;
         }
         
         if (e.getSource() == btnForgotPassword) {
-            new ForgotPasswordWindow().setVisible(true);
+            new ForgotPasswordWindow(currentUser).setVisible(true);
             dispose();
             return;
         }
@@ -161,21 +165,21 @@ public class LogInWindow extends JFrame implements ActionListener {
 
             // LOGIN
             UserDAO UserDAO = new UserDAO();
-            User user = UserDAO.login(
+            User currentUser = UserDAO.login(
                     personId,
                     password,
                     userType
             );
 
             // LOGIN RESULT
-            if (user != null) {
+            if (currentUser != null) {
                 JOptionPane.showMessageDialog(
                         this,
                         "Login Successful!",
                         "Success",
                         JOptionPane.INFORMATION_MESSAGE
                 );
-                new Dashboard().setVisible(true);
+                new Dashboard(currentUser).setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(

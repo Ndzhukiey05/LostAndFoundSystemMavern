@@ -6,6 +6,8 @@ import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 import lostandfoundsystem.constants.Icons;
 
+import lostandfoundsystem.domain.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -23,7 +25,10 @@ import javax.swing.border.EmptyBorder;
 
 public class ItemDetailsWindow extends JFrame {
 
-    public ItemDetailsWindow() {
+    private User currentUser;
+    
+    public ItemDetailsWindow(User currentUser) {
+        this.currentUser = currentUser;
         super("Campus Finder - Item Details");
         guiSetUp();
     }
@@ -190,12 +195,12 @@ public class ItemDetailsWindow extends JFrame {
         btnClaim.setPreferredSize(new Dimension(130, 38));
 
         btnBack.addActionListener(e -> {
-            new ClaimWindow();
+            new ClaimWindow(currentUser);
             dispose();
         });
 
         btnClaim.addActionListener(e -> {
-            new ClaimFormWindow();
+            new ClaimFormWindow(currentUser);
             dispose();
         });
 

@@ -7,6 +7,9 @@ import lostandfoundsystem.components.SideBarPanel;
 import lostandfoundsystem.components.UIComponents;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
+
+import lostandfoundsystem.domain.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -25,8 +28,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class HelpWindow extends JFrame {
+    
+    private User currentUser;
 
-    public HelpWindow() {
+    public HelpWindow(User currentUser) {
+        this.currentUser = currentUser;
         super("Campus Finder - Help");
         guiSetUp();
     }
@@ -39,12 +45,12 @@ public class HelpWindow extends JFrame {
         getContentPane().setBackground(Colors.DARK_BLUE_TEXT_COLOR);
         setLayout(new BorderLayout(15, 15));
 
-        SideBarPanel sidebarPanel = new SideBarPanel();
+        SideBarPanel sidebarPanel = new SideBarPanel(currentUser);
 
         JPanel center = new JPanel(new BorderLayout(15, 15));
         center.setOpaque(false);
 
-        PageHeaderPanel headerPanel = new PageHeaderPanel("HELP");
+        PageHeaderPanel headerPanel = new PageHeaderPanel("HELP", currentUser);
 
         center.add(headerPanel, BorderLayout.NORTH);
         center.add(createContentPanel(), BorderLayout.CENTER);
@@ -268,7 +274,7 @@ public class HelpWindow extends JFrame {
         btnAdminSupport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnAdminSupport.addActionListener(e -> {
-            AdminSupportWindow window = new AdminSupportWindow();
+            AdminSupportWindow window = new AdminSupportWindow(currentUser);
                 window.setVisible(true);
                 dispose();
         });

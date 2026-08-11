@@ -8,6 +8,8 @@ import lostandfoundsystem.components.UIComponents;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 
+import lostandfoundsystem.domain.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -35,6 +37,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class ReportLostItemWindow extends JFrame implements ActionListener, MouseListener {
+    
+    private User currentUser;
 
     private javax.swing.JButton cancelBtn;
     private javax.swing.JButton subBtn;
@@ -59,7 +63,8 @@ public class ReportLostItemWindow extends JFrame implements ActionListener, Mous
     private javax.swing.ImageIcon originalImage;
     private JFileChooser fileChooser;
 
-    public ReportLostItemWindow() {
+    public ReportLostItemWindow(User currentUser) {
+        this.currentUser = currentUser;
         super("Campus Finder - Report Lost Item");
         guiSetUp();
     }
@@ -73,12 +78,12 @@ public class ReportLostItemWindow extends JFrame implements ActionListener, Mous
         getContentPane().setBackground(Colors.DARK_BLUE_TEXT_COLOR);
         setLayout(new BorderLayout(15, 15));
 
-        SideBarPanel sidebarPanel = new SideBarPanel();
+        SideBarPanel sidebarPanel = new SideBarPanel(currentUser);
 
         JPanel center = new JPanel(new BorderLayout(15, 15));
         center.setOpaque(false);
 
-        PageHeaderPanel headerPanel = new PageHeaderPanel("REPORT LOST ITEM");
+        PageHeaderPanel headerPanel = new PageHeaderPanel("REPORT LOST ITEM",currentUser);
 
         center.add(headerPanel, BorderLayout.NORTH);
         center.add(createContentPanel(), BorderLayout.CENTER);

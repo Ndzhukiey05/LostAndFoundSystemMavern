@@ -8,6 +8,8 @@ import lostandfoundsystem.components.UIComponents;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 
+import lostandfoundsystem.domain.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,10 +30,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class ClaimWindow extends JFrame {
-
+    
+    private User currentUser;
     private JPanel claimsContainer;
 
-    public ClaimWindow() {
+    public ClaimWindow(User currentUser) {
+        this.currentUser = currentUser;
         super("Campus Finder - Claims");
         guiSetUp();
     }
@@ -44,12 +48,12 @@ public class ClaimWindow extends JFrame {
         getContentPane().setBackground(new Color(73, 107, 145));
         setLayout(new BorderLayout(15, 15));
 
-        SideBarPanel sidebarPanel = new SideBarPanel();
+        SideBarPanel sidebarPanel = new SideBarPanel(currentUser);
 
         JPanel center = new JPanel(new BorderLayout(15, 15));
         center.setOpaque(false);
 
-        PageHeaderPanel headerPanel = new PageHeaderPanel("CLAIMS");
+        PageHeaderPanel headerPanel = new PageHeaderPanel("CLAIMS", currentUser);
 
         center.add(headerPanel, BorderLayout.NORTH);
         center.add(createContentPanel(), BorderLayout.CENTER);
@@ -177,12 +181,12 @@ public class ClaimWindow extends JFrame {
         });
 
         btnEdit.addActionListener(e -> {
-            new ClaimFormWindow();
+            new ClaimFormWindow(currentUser);
             dispose();
         });
 
         btnView.addActionListener(e -> {
-            new ItemDetailsWindow();
+            new ItemDetailsWindow(currentUser);
             dispose();
         });
 

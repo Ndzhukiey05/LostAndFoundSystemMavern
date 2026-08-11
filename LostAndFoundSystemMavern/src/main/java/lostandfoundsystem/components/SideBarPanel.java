@@ -4,6 +4,9 @@ package lostandfoundsystem.components;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 import lostandfoundsystem.constants.Icons;
+
+import lostandfoundsystem.domain.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -28,10 +31,13 @@ import lostandfoundsystem.windows.ReportLostItemWindow;
 import lostandfoundsystem.windows.ViewAllPostsWindow;
 
 public class SideBarPanel extends JPanel {
+    
+    private User currentUser;
 
     private JButton btnReportLostItem, btnReportFoundItem, btnViewAllPosts, btnClaims, btnHelp, btnLogout;
 
-    public SideBarPanel() {
+    public SideBarPanel(User currentUser) {
+        this.currentUser = currentUser;
         createSideBar();
     }
 
@@ -42,7 +48,7 @@ public class SideBarPanel extends JPanel {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(20, 5, 20, 20));
 
-        JLabel profile = new JLabel("PROFILE");
+        JLabel profile = new JLabel(currentUser.getName());
         profile.setFont(Fonts.Bold.deriveFont(24f));
         profile.setForeground(Colors.DARK_BLUE_TEXT_COLOR);
         profile.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -93,7 +99,7 @@ public class SideBarPanel extends JPanel {
         btnReportLostItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ReportLostItemWindow window = new ReportLostItemWindow();
+                ReportLostItemWindow window = new ReportLostItemWindow(currentUser);
                 window.setVisible(true);
                 closeCurrentWindow();
             }
@@ -102,7 +108,7 @@ public class SideBarPanel extends JPanel {
         btnReportFoundItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ReportFoundItemWindow window = new ReportFoundItemWindow();
+                ReportFoundItemWindow window = new ReportFoundItemWindow(currentUser);
                 window.setVisible(true);
                 closeCurrentWindow();
             }
@@ -111,7 +117,7 @@ public class SideBarPanel extends JPanel {
         btnViewAllPosts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewAllPostsWindow window = new ViewAllPostsWindow();
+                ViewAllPostsWindow window = new ViewAllPostsWindow(currentUser);
                 window.setVisible(true);
                 closeCurrentWindow();
             }
@@ -120,7 +126,7 @@ public class SideBarPanel extends JPanel {
         btnClaims.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ClaimWindow window = new ClaimWindow();
+                ClaimWindow window = new ClaimWindow(currentUser);
                 window.setVisible(true);
                 closeCurrentWindow();
             }
@@ -129,7 +135,7 @@ public class SideBarPanel extends JPanel {
         btnHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                HelpWindow window = new HelpWindow();
+                HelpWindow window = new HelpWindow(currentUser);
                 window.setVisible(true);
                 closeCurrentWindow();
             }
@@ -138,7 +144,7 @@ public class SideBarPanel extends JPanel {
         profile.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                ProfileWindow profileWindow = new ProfileWindow();
+                ProfileWindow profileWindow = new ProfileWindow(currentUser);
                 profileWindow.setVisible(true);
                 closeCurrentWindow();
             }

@@ -2,12 +2,16 @@
 
 package lostandfoundsystem.windows;
 
+import lostandfoundsystem.domain.User;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class AdminSupportWindow extends JFrame {
 
+    private User currentUser;
+    
     private JPanel mainPanel;
     private JPanel formPanel;
 
@@ -23,7 +27,8 @@ public class AdminSupportWindow extends JFrame {
     private JButton btnCancel;
     private JButton btnSubmit;
 
-    public AdminSupportWindow() {
+    public AdminSupportWindow(User currentUser) {
+        this.currentUser = currentUser;
         guiSetUp();
     }
 
@@ -154,7 +159,7 @@ public class AdminSupportWindow extends JFrame {
 
                 dispose();
 
-                new HelpWindow();
+                new HelpWindow(currentUser);
             }
         });
 

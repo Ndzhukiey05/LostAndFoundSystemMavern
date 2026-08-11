@@ -6,12 +6,17 @@ import lostandfoundsystem.components.PageHeaderPanel;
 import lostandfoundsystem.components.SideBarPanel;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
+
+import lostandfoundsystem.domain.User;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class ViewAllPostsWindow extends JFrame {
 
+    private User currentUser;
+    
     private JPanel sidebarPanel;
     private JPanel headerPanel;
     private JPanel filterPanel;
@@ -19,7 +24,8 @@ public class ViewAllPostsWindow extends JFrame {
     private JPanel itemsPanel;
     private JComboBox<String> cmbFilter;
 
-    public ViewAllPostsWindow() {
+    public ViewAllPostsWindow(User currentUser) {
+        this.currentUser = currentUser;
         guiSetUp();
     }
 
@@ -30,7 +36,7 @@ public class ViewAllPostsWindow extends JFrame {
         getContentPane().setBackground(new Color(73, 107, 145));
         setLayout(new BorderLayout(15, 15));
 
-        sidebarPanel = new SideBarPanel();
+        sidebarPanel = new SideBarPanel(currentUser);
         headerPanel = createHeaderPanel();
         centerPanel = createCenterPanel();
 
@@ -46,7 +52,7 @@ public class ViewAllPostsWindow extends JFrame {
     }
 
     private JPanel createHeaderPanel() {
-        return new PageHeaderPanel("VIEW ALL POSTS");
+        return new PageHeaderPanel("VIEW ALL POSTS", currentUser);
     }
 
     private JPanel createCenterPanel() {
