@@ -1,10 +1,11 @@
 package lostandfoundsystem.dao;
 
+// 230939023
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,190 +20,193 @@ import lostandfoundsystem.domain.User;
 public class UserDAO {
 
     private Connection con;
-    private Statement stmt;
     private PreparedStatement pstmt;
 
     public UserDAO() {
+
         try {
             con = DBConnection.derbyConnection();
+
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(
+                    Level.SEVERE,
+                    null,
+                    ex
+            );
         }
     }
 
-    // SAVES A STUDENT USER
-    public void saveStudent(Student student) {
+    public boolean saveStudent(Student student) {
 
-        int ok;
-
-        String sql = "INSERT INTO USERS "
-                + "(name, surname, password, sec_question, sec_answer, role, student_number) "
-                + "VALUES ('"
-                + student.getName() + "', '"
-                + student.getSurname() + "', '"
-                + student.getPassword() + "', '"
-                + student.getSecQuestion() + "', '"
-                + student.getSecAnswer() + "', "
-                + "'STUDENT', '"
-                + student.getStudentNumber() + "')";
+        String sql = "INSERT INTO STUDENT "
+                + "(person_id, name, surname, password, sec_question, sec_answer, student_number) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            stmt = this.con.createStatement();
-            ok = stmt.executeUpdate(sql);
 
-        } catch (SQLException sqlException) {
-            JOptionPane.showMessageDialog(null,
-                    "SQL Error: " + sqlException.getMessage());
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, student.getPersonId());
+            pstmt.setString(2, student.getName());
+            pstmt.setString(3, student.getSurname());
+            pstmt.setString(4, student.getPassword());
+            pstmt.setString(5, student.getSecQuestion());
+            pstmt.setString(6, student.getSecAnswer());
+            pstmt.setString(7, student.getStudentNumber());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "SQL Error: " + ex.getMessage()
+            );
+
+            return false;
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null,
-                        exception.getMessage());
-            }
+
+            closeStatement();
         }
     }
 
-    // SAVES A STAFF USER
-    public void saveStaff(Staff staff) {
+    public boolean saveStaff(Staff staff) {
 
-        int ok;
-
-        String sql = "INSERT INTO USERS "
-                + "(name, surname, password, sec_question, sec_answer, role, employee_id, department) "
-                + "VALUES ('"
-                + staff.getName() + "', '"
-                + staff.getSurname() + "', '"
-                + staff.getPassword() + "', '"
-                + staff.getSecQuestion() + "', '"
-                + staff.getSecAnswer() + "', "
-                + "'STAFF', '"
-                + staff.getEmployeeId() + "', '"
-                + staff.getDepartment() + "')";
+        String sql = "INSERT INTO STAFF "
+                + "(person_id, name, surname, password, sec_question, sec_answer, employee_id, department) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            stmt = this.con.createStatement();
-            ok = stmt.executeUpdate(sql);
 
-        } catch (SQLException sqlException) {
-            JOptionPane.showMessageDialog(null,
-                    "SQL Error: " + sqlException.getMessage());
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, staff.getPersonId());
+            pstmt.setString(2, staff.getName());
+            pstmt.setString(3, staff.getSurname());
+            pstmt.setString(4, staff.getPassword());
+            pstmt.setString(5, staff.getSecQuestion());
+            pstmt.setString(6, staff.getSecAnswer());
+            pstmt.setString(7, staff.getEmployeeId());
+            pstmt.setString(8, staff.getDepartment());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "SQL Error: " + ex.getMessage()
+            );
+
+            return false;
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null,
-                        exception.getMessage());
-            }
+
+            closeStatement();
         }
     }
 
-    // SAVES A LECTURER USER
-    public void saveLecturer(Lecturer lecturer) {
+    public boolean saveLecturer(Lecturer lecturer) {
 
-        int ok;
-
-        String sql = "INSERT INTO USERS "
-                + "(name, surname, password, sec_question, sec_answer, role, employee_id, department) "
-                + "VALUES ('"
-                + lecturer.getName() + "', '"
-                + lecturer.getSurname() + "', '"
-                + lecturer.getPassword() + "', '"
-                + lecturer.getSecQuestion() + "', '"
-                + lecturer.getSecAnswer() + "', "
-                + "'LECTURER', '"
-                + lecturer.getEmployeeId() + "', '"
-                + lecturer.getDepartment() + "')";
+        String sql = "INSERT INTO LECTURER "
+                + "(person_id, name, surname, password, sec_question, sec_answer, employee_id, department) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            stmt = this.con.createStatement();
-            ok = stmt.executeUpdate(sql);
 
-        } catch (SQLException sqlException) {
-            JOptionPane.showMessageDialog(null,
-                    "SQL Error: " + sqlException.getMessage());
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, lecturer.getPersonId());
+            pstmt.setString(2, lecturer.getName());
+            pstmt.setString(3, lecturer.getSurname());
+            pstmt.setString(4, lecturer.getPassword());
+            pstmt.setString(5, lecturer.getSecQuestion());
+            pstmt.setString(6, lecturer.getSecAnswer());
+            pstmt.setString(7, lecturer.getEmployeeId());
+            pstmt.setString(8, lecturer.getDepartment());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "SQL Error: " + ex.getMessage()
+            );
+
+            return false;
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null,
-                        exception.getMessage());
-            }
+
+            closeStatement();
         }
     }
 
-    // SAVES AN ADMIN USER
-    public void saveAdmin(Admin admin) {
+    public boolean saveAdmin(Admin admin) {
 
-        int ok;
-
-        String sql = "INSERT INTO USERS "
-                + "(name, surname, password, sec_question, sec_answer, role, employee_id, department, access_level) "
-                + "VALUES ('"
-                + admin.getName() + "', '"
-                + admin.getSurname() + "', '"
-                + admin.getPassword() + "', '"
-                + admin.getSecQuestion() + "', '"
-                + admin.getSecAnswer() + "', "
-                + "'ADMIN', '"
-                + admin.getEmployeeId() + "', '"
-                + admin.getDepartment() + "', "
-                + admin.getAccessLevel() + ")";
+        String sql = "INSERT INTO ADMIN "
+                + "(person_id, name, surname, password, sec_question, sec_answer, employee_id, department, access_level) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            stmt = this.con.createStatement();
-            ok = stmt.executeUpdate(sql);
 
-        } catch (SQLException sqlException) {
-            JOptionPane.showMessageDialog(null,
-                    "SQL Error: " + sqlException.getMessage());
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, admin.getPersonId());
+            pstmt.setString(2, admin.getName());
+            pstmt.setString(3, admin.getSurname());
+            pstmt.setString(4, admin.getPassword());
+            pstmt.setString(5, admin.getSecQuestion());
+            pstmt.setString(6, admin.getSecAnswer());
+            pstmt.setString(7, admin.getEmployeeId());
+            pstmt.setString(8, admin.getDepartment());
+            pstmt.setInt(9, admin.getAccessLevel());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "SQL Error: " + ex.getMessage()
+            );
+
+            return false;
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null,
-                        exception.getMessage());
-            }
+
+            closeStatement();
         }
     }
 
-    // AUTHENTICATE USER
-    public User login(String identifier, String password) {
+    public User login(int personId, String password, String userType) {
 
-        String sql = "SELECT * FROM USERS "
-                + "WHERE (student_number = ? "
-                + "OR employee_id = ? "
-                + "OR CAST(person_id AS VARCHAR(20)) = ?) "
-                + "AND password = ?";
+        String tableName = userType.toUpperCase();
+
+        String sql = "SELECT * FROM " + tableName
+                + " WHERE person_id = ? AND password = ?";
 
         try {
-            pstmt = this.con.prepareStatement(sql);
 
-            pstmt.setString(1, identifier);
-            pstmt.setString(2, identifier);
-            pstmt.setString(3, identifier);
-            pstmt.setString(4, password);
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, personId);
+            pstmt.setString(2, password);
 
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
 
-                String role = rs.getString("role");
-
-                // STUDENT
-                if ("STUDENT".equalsIgnoreCase(role)) {
+                if (userType.equalsIgnoreCase("Student")) {
 
                     return new Student(
                             rs.getInt("person_id"),
@@ -215,8 +219,35 @@ public class UserDAO {
                     );
                 }
 
-                // ADMIN
-                else if ("ADMIN".equalsIgnoreCase(role)) {
+                if (userType.equalsIgnoreCase("Lecturer")) {
+
+                    return new Lecturer(
+                            rs.getInt("person_id"),
+                            rs.getString("name"),
+                            rs.getString("surname"),
+                            rs.getString("password"),
+                            rs.getString("sec_question"),
+                            rs.getString("sec_answer"),
+                            rs.getString("employee_id"),
+                            rs.getString("department")
+                    );
+                }
+
+                if (userType.equalsIgnoreCase("Staff")) {
+
+                    return new Staff(
+                            rs.getInt("person_id"),
+                            rs.getString("name"),
+                            rs.getString("surname"),
+                            rs.getString("password"),
+                            rs.getString("sec_question"),
+                            rs.getString("sec_answer"),
+                            rs.getString("employee_id"),
+                            rs.getString("department")
+                    );
+                }
+
+                if (userType.equalsIgnoreCase("Admin")) {
 
                     return new Admin(
                             rs.getInt("person_id"),
@@ -231,54 +262,32 @@ public class UserDAO {
                     );
                 }
 
-                // LECTURER
-                else if ("LECTURER".equalsIgnoreCase(role)) {
-
-                    return new Lecturer(
-                            rs.getInt("person_id"),
-                            rs.getString("name"),
-                            rs.getString("surname"),
-                            rs.getString("password"),
-                            rs.getString("sec_question"),
-                            rs.getString("sec_answer"),
-                            rs.getString("employee_id"),
-                            rs.getString("department")
-                    );
-                }
-
-                // STAFF
-                else if ("STAFF".equalsIgnoreCase(role)) {
-
-                    return new Staff(
-                            rs.getInt("person_id"),
-                            rs.getString("name"),
-                            rs.getString("surname"),
-                            rs.getString("password"),
-                            rs.getString("sec_question"),
-                            rs.getString("sec_answer"),
-                            rs.getString("employee_id"),
-                            rs.getString("department")
-                    );
-                }
             }
 
             rs.close();
 
-        } catch (SQLException sqlException) {
-            JOptionPane.showMessageDialog(null,
-                    "SQL Error: " + sqlException.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "SQL Error: " + ex.getMessage()
+            );
 
         } finally {
-            try {
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null,
-                        exception.getMessage());
-            }
+            closeStatement();
         }
-
         return null;
+    }
+    
+    private void closeStatement() {
+        try {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage()
+            );
+        }
     }
 }

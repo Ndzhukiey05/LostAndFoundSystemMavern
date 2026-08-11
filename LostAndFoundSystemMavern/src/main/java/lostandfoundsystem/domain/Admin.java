@@ -1,12 +1,16 @@
 package lostandfoundsystem.domain;
 
-//230939023
+// 230939023
 
 public class Admin extends Staff {
 
-    // AccessLevel is an int (0 || null) : 1
-    // (0 || null) : change personal posts
-    // 1 : change all posts   
+    /*
+     * Access Level:
+     *
+     * 0 = Can change personal posts
+     * 1 = Can change all posts
+     */
+
     private int accessLevel;
 
     public Admin() {
@@ -14,7 +18,7 @@ public class Admin extends Staff {
     }
 
     public Admin(
-            int id,
+            int personId,
             String name,
             String surname,
             String password,
@@ -24,8 +28,18 @@ public class Admin extends Staff {
             String department,
             int accessLevel
     ) {
-        super(id, name, surname, password, secQuestion, secAnswer, employeeId, department);
-        this.accessLevel = 1;
+        super(
+                personId,
+                name,
+                surname,
+                password,
+                secQuestion,
+                secAnswer,
+                employeeId,
+                department
+        );
+
+        this.accessLevel = accessLevel;
     }
 
     public int getAccessLevel() {
@@ -43,6 +57,7 @@ public class Admin extends Staff {
                 + ", name='" + getName() + '\''
                 + ", surname='" + getSurname() + '\''
                 + ", employeeId='" + getEmployeeId() + '\''
+                + ", department='" + getDepartment() + '\''
                 + ", accessLevel=" + accessLevel
                 + '}';
     }
