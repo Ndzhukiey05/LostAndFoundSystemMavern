@@ -1,5 +1,4 @@
 package lostandfoundsystem.gui;
-
 // 230939023
 // WE EXPECT A USER TO LOG_IN OR SIGN_UP
 // THEREFORE WE USE THE LogInWindow AS OUR ENTRY POINT FOR THE APP

@@ -1,11 +1,9 @@
 package lostandfounfsystem.domain;
 
 /*
-
 230939023
 This is the User Class
 It will act a Parent Class for Student, Lecturer Admin, and Staff
-
 Student, Lecturer, Admin and Staff Should be an extended class of User
 */
 
@@ -22,7 +20,14 @@ public class User {
     public User() {
     }
 
-    public User(int personId, String name, String surname, String password, String secQuestion, String secAnswer) {
+    public User(
+            int personId,
+            String name, 
+            String surname, 
+            String password, 
+            String secQuestion, 
+            String secAnswer
+    ) {
         this.personId = personId;
         this.name = name;
         this.surname = surname;
