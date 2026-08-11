@@ -1,6 +1,6 @@
 package lostandfoundsystem.domain;
 
-//230939023
+// 230939023
 
 public class Student extends User {
 
@@ -13,13 +13,21 @@ public class Student extends User {
     public Student(
             int personId,
             String name,
-            String surname, 
-            String password, 
-            String secQuestion, 
+            String surname,
+            String password,
+            String secQuestion,
             String secAnswer,
             String studentNumber
     ) {
-        super(personId, name, surname, password, secQuestion, secAnswer);
+        super(
+                personId,
+                name,
+                surname,
+                password,
+                secQuestion,
+                secAnswer
+        );
+
         this.studentNumber = studentNumber;
     }
 
@@ -31,14 +39,13 @@ public class Student extends User {
         this.studentNumber = studentNumber;
     }
 
-
     @Override
     public String toString() {
-        return "Student{" +
-                "personId=" + getPersonId() +
-                ", name='" + getName() + '\'' +
-                ", surname='" + getSurname() + '\'' +
-                ", studentNumber='" + studentNumber + '\'' +
-                '}';
+        return "Student{"
+                + "personId=" + getPersonId()
+                + ", name='" + getName() + '\''
+                + ", surname='" + getSurname() + '\''
+                + ", studentNumber='" + studentNumber + '\''
+                + '}';
     }
 }

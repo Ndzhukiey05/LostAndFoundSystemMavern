@@ -1,6 +1,6 @@
 package lostandfoundsystem.domain;
 
-//230939023
+// 230939023
 
 public class Staff extends User {
 
@@ -21,7 +21,15 @@ public class Staff extends User {
             String employeeId,
             String department
     ) {
-        super(personId, name, surname, password, secQuestion, secAnswer);
+        super(
+                personId,
+                name,
+                surname,
+                password,
+                secQuestion,
+                secAnswer
+        );
+
         this.employeeId = employeeId;
         this.department = department;
     }
@@ -44,12 +52,12 @@ public class Staff extends User {
 
     @Override
     public String toString() {
-        return "Staff{" +
-                "personId=" + getPersonId() +
-                ", name='" + getName() + '\'' +
-                ", surname='" + getSurname() + '\'' +
-                ", employeeId='" + employeeId + '\'' +
-                ", department='" + department + '\'' +
-                '}';
+        return "Staff{"
+                + "personId=" + getPersonId()
+                + ", name='" + getName() + '\''
+                + ", surname='" + getSurname() + '\''
+                + ", employeeId='" + employeeId + '\''
+                + ", department='" + department + '\''
+                + '}';
     }
 }

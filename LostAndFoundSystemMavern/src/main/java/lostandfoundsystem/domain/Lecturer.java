@@ -1,5 +1,7 @@
 package lostandfoundsystem.domain;
 
+// 230939023
+
 public class Lecturer extends Staff {
 
     public Lecturer() {
@@ -15,8 +17,17 @@ public class Lecturer extends Staff {
             String secAnswer,
             String employeeId,
             String department
-    ) { 
-        super(personId, name, surname, password, secQuestion, secAnswer, employeeId, department);
+    ) {
+        super(
+                personId,
+                name,
+                surname,
+                password,
+                secQuestion,
+                secAnswer,
+                employeeId,
+                department
+        );
     }
 
     @Override

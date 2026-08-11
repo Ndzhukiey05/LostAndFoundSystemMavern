@@ -1,12 +1,16 @@
 package lostandfoundsystem.domain;
 
-/*
-230939023
-This is the User Class
-It will act a Parent Class for Student, Lecturer Admin, and Staff
-Student, Lecturer, Admin and Staff Should be an extended class of User
-*/
+// 230939023
 
+/*
+ * This is the User Class.
+ *
+ * It acts as the Parent Class for:
+ * Student, Lecturer, Admin and Staff.
+ *
+ * Student, Lecturer, Admin and Staff
+ * extend the User class.
+ */
 
 public class User {
 
@@ -16,16 +20,16 @@ public class User {
     private String password;
     private String secQuestion;
     private String secAnswer;
-    
+
     public User() {
     }
 
     public User(
             int personId,
-            String name, 
-            String surname, 
-            String password, 
-            String secQuestion, 
+            String name,
+            String surname,
+            String password,
+            String secQuestion,
             String secAnswer
     ) {
         this.personId = personId;
@@ -40,48 +44,56 @@ public class User {
         return personId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getSecQuestion() {
-        return secQuestion;
-    }
-
-    public String getSecAnswer() {
-        return secAnswer;
-    }
-
     public void setPersonId(int personId) {
         this.personId = personId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public String getSecQuestion() {
+        return secQuestion;
+    }
+
     public void setSecQuestion(String secQuestion) {
         this.secQuestion = secQuestion;
+    }
+
+    public String getSecAnswer() {
+        return secAnswer;
     }
 
     public void setSecAnswer(String secAnswer) {
         this.secAnswer = secAnswer;
     }
-    
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "personId=" + personId
+                + ", name='" + name + '\''
+                + ", surname='" + surname + '\''
+                + '}';
+    }
 }
