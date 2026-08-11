@@ -1,67 +1,55 @@
-//230939023
-
 package lostandfounfsystem.domain;
 
+//230939023
+
 public class Student extends User {
-    
-    private int studentId;
-    private int studentNumber;
-    private String studentEmail;
+
+    private String studentNumber;
     private String course;
-    private int year;
-    
+
     public Student() {
+        super();
     }
 
-    public Student(int personId, String name, String surname, String password, String secQuestion, String secAnswer) {
+    public Student(
+            int personId,
+            String name,
+            String surname, 
+            String password, 
+            String secQuestion, 
+            String secAnswer,
+            String studentNumber, 
+            String course
+    ) {
         super(personId, name, surname, password, secQuestion, secAnswer);
-        this.studentId = studentId;
         this.studentNumber = studentNumber;
-        this.studentEmail = studentEmail;
         this.course = course;
-        this.year = year;
     }
-    
-    public int getStudentId() {
-        return studentId;
-    }
-    
-    public int getStudentNumber() {
+
+    public String getStudentNumber() {
         return studentNumber;
     }
-    
-    public String getStudentEmail() {
-        return studentEmail;
+
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
-    
+
     public String getCourse() {
         return course;
     }
-    
-    public int getYear() {
-        return year;
-    }
-    
-    public void setStudentId(int studentId){
-        this.studentId = studentId;
-    } 
-    
-    public void setStudentNumber(int studentNumber) {
-         this.studentNumber = studentNumber;
-    }
-    
-    public void setStudentEmail(String studentEmail) {
-        this.studentEmail = studentEmail;
-    }
-    
-    public void setCourse(String course){
+
+    public void setCourse(String course) {
         this.course = course;
     }
-    
-    public void setYear(int year) {
-        this.year = year;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "personId=" + getPersonId() +
+                ", name='" + getName() + '\'' +
+                ", surname='" + getSurname() + '\'' +
+                ", studentNumber='" + studentNumber + '\'' +
+                ", course='" + course + '\'' +
+                '}';
     }
-    
 }
-
-
