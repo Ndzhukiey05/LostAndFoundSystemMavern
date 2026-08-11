@@ -1,10 +1,10 @@
-package windows;
+package lostandfoundsystem.windows;
 
-import components.PageHeaderPanel;
-import components.SideBarPanel;
-import components.UIComponents;
-import constants.Colors;
-import constants.Fonts;
+import lostandfoundsystem.components.PageHeaderPanel;
+import lostandfoundsystem.components.SideBarPanel;
+import lostandfoundsystem.components.UIComponents;
+import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.constants.Fonts;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;

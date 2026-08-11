@@ -16,3 +16,6 @@ Database Class Loader started - derby.database.classpath=''
 Mon Aug 10 15:30:14 SAST 2026:
 Shutting down instance a816c00e-019f-ebdd-dcd0-ffffe4d3cb00 on database directory D:\LostAndFoundSystemMavern\LostAndFoundSystemMavern\src\main\database\LostAndFoundDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e 
 Mon Aug 10 15:30:14 SAST 2026 Thread[#33,DRDAConnThread_3,5,main] (DATABASE = LostAndFoundDatabase), (DRDAID = {2}), Database 'LostAndFoundDatabase' shutdown.
+----------------------------------------------------------------
+Mon Aug 10 17:25:19 SAST 2026: Shutting down Derby engine
+----------------------------------------------------------------

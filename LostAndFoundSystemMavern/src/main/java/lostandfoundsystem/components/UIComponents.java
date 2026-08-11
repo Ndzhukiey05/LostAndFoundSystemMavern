@@ -1,7 +1,7 @@
-package components;
+package lostandfoundsystem.components;
 
-import constants.Colors;
-import constants.Fonts;
+import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.constants.Fonts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

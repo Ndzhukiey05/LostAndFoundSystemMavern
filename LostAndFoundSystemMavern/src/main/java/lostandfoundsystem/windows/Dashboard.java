@@ -1,9 +1,9 @@
 //230939023
-package windows;
+package lostandfoundsystem.windows;
 
-import components.PageHeaderPanel;
-import components.SideBarPanel;
-import constants.Colors;
+import lostandfoundsystem.components.PageHeaderPanel;
+import lostandfoundsystem.components.SideBarPanel;
+import lostandfoundsystem.constants.Colors;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
