@@ -5,6 +5,8 @@ import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 import lostandfoundsystem.components.UIComponents;
 
+import lostandfoundsystem.domain.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -14,6 +16,9 @@ public class EditProfileWindow extends JFrame {
 
 //    private JPanel northPanel;
 //    private JLabel title;
+    
+    private User currentUser;
+    
     private UIComponents.RoundedTextField txtName;
     private UIComponents.RoundedTextField txtSurname;
     private UIComponents.RoundedTextField txtEmail;
@@ -22,7 +27,7 @@ public class EditProfileWindow extends JFrame {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
 
-    public EditProfileWindow() {
+    public EditProfileWindow(User currentUser) {
 
 //        title = new JLabel("Edit Profile");
 //        northPanel = new JPanel();
@@ -131,7 +136,7 @@ public class EditProfileWindow extends JFrame {
         btnCancel.setPreferredSize(new Dimension(100, 35));
         btnCancel.addActionListener(e -> {
             dispose();
-            new ProfileWindow().setVisible(true);
+            new ProfileWindow(currentUser).setVisible(true);
         });
 
         UIComponents.RoundedButton btnSave = new UIComponents.RoundedButton("Save Changes", Colors.WHITE_TEXT_COLOR, Colors.BLACK_TEXT_COLOR, 20);
@@ -190,7 +195,7 @@ public class EditProfileWindow extends JFrame {
 
         // Dispose EditProfileWindow and re-open ProfileWindow
         dispose();
-        new ProfileWindow().setVisible(true);
+        new ProfileWindow(currentUser).setVisible(true);
     }
 }
 

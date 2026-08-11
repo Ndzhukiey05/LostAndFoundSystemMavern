@@ -9,6 +9,7 @@ import lostandfoundsystem.domain.Admin;
 import lostandfoundsystem.domain.Lecturer;
 import lostandfoundsystem.domain.Staff;
 import lostandfoundsystem.domain.Student;
+import lostandfoundsystem.domain.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignUpWindow extends JFrame implements ActionListener {
+    
+    private User currentUser;
 
     private JLabel title;
     private JLabel lblName;
@@ -49,30 +52,28 @@ public class SignUpWindow extends JFrame implements ActionListener {
     private JPanel CenterPanel;
     private JPanel SouthPanel;
 
-    public SignUpWindow() {
+    public SignUpWindow(User currentUser) {
 
+        this.currentUser = currentUser;
         super("Sign Up");
 
         NorthPanel = new JPanel();
         CenterPanel = new JPanel();
         SouthPanel = new JPanel();
 
-        
         title = new JLabel("SIGN UP");
         title.setFont(Fonts.Bold.deriveFont(36f));
         title.setForeground(Color.WHITE);
 
-        
         lblName = new JLabel("Name:");
         txtName = new JTextField(15);
 
-        
         lblSurname = new JLabel("Surname:");
         txtSurname = new JTextField(15);
-        
+
         lblIdNum = new JLabel("ID Number:");
         txtIdNum = new JTextField(15);
-        
+
         lblPassword = new JLabel("Password:");
         txtPassword = new JPasswordField(15);
 
@@ -102,7 +103,7 @@ public class SignUpWindow extends JFrame implements ActionListener {
 
         lblAnswer = new JLabel("Answer:");
         txtAnswer = new JTextField(15);
-        
+
         btnCancel = new JButton("Cancel");
         btnConfirm = new JButton("Confirm");
 
@@ -110,7 +111,7 @@ public class SignUpWindow extends JFrame implements ActionListener {
     }
 
     public void GuiSetUp() {
-        
+
         NorthPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         NorthPanel.add(title);
         NorthPanel.setBackground(Colors.MAIN_BACKGROUND_COLOR);
@@ -232,8 +233,12 @@ public class SignUpWindow extends JFrame implements ActionListener {
             }
 
             UserDAO userDAO = new UserDAO();
+
+            User currentUser = null;
             boolean saved = false;
+
             if (role.equals("Student")) {
+
                 Student student = new Student(
                         personId,
                         name,
@@ -243,8 +248,12 @@ public class SignUpWindow extends JFrame implements ActionListener {
                         answer,
                         idNum
                 );
+
                 saved = userDAO.saveStudent(student);
+                currentUser = student;
+
             } else if (role.equals("Lecturer")) {
+
                 Lecturer lecturer = new Lecturer(
                         personId,
                         name,
@@ -255,8 +264,12 @@ public class SignUpWindow extends JFrame implements ActionListener {
                         idNum,
                         "Not Assigned"
                 );
+
                 saved = userDAO.saveLecturer(lecturer);
+                currentUser = lecturer;
+
             } else if (role.equals("Staff")) {
+
                 Staff staff = new Staff(
                         personId,
                         name,
@@ -268,7 +281,10 @@ public class SignUpWindow extends JFrame implements ActionListener {
                         "Not Assigned"
                 );
                 saved = userDAO.saveStaff(staff);
+                currentUser = staff;
+                
             } else if (role.equals("Admin")) {
+                
                 Admin admin = new Admin(
                         personId,
                         name,
@@ -280,7 +296,9 @@ public class SignUpWindow extends JFrame implements ActionListener {
                         "Not Assigned",
                         1
                 );
+
                 saved = userDAO.saveAdmin(admin);
+                currentUser = admin;
             }
 
             if (saved) {
@@ -290,9 +308,11 @@ public class SignUpWindow extends JFrame implements ActionListener {
                         "Success",
                         JOptionPane.INFORMATION_MESSAGE
                 );
-                new Dashboard().setVisible(true);
+                new Dashboard(currentUser).setVisible(true);
                 dispose();
+
             } else {
+
                 JOptionPane.showMessageDialog(
                         this,
                         "Account could not be created.",

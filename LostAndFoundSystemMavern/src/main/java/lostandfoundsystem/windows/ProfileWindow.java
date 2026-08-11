@@ -5,6 +5,9 @@ import lostandfoundsystem.components.SideBarPanel;
 import lostandfoundsystem.components.UIComponents;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
+
+import lostandfoundsystem.domain.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -27,8 +30,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class ProfileWindow extends JFrame {
+    
+    private User currentUser;
 
-    public ProfileWindow() {
+    public ProfileWindow(User currentUser) {
+        this.currentUser = currentUser;
         super("Campus Finder - Profile");
         guiSetUp();
     }
@@ -43,12 +49,12 @@ public class ProfileWindow extends JFrame {
         getContentPane().setBackground(Colors.DARK_BLUE_TEXT_COLOR);
         setLayout(new BorderLayout(15, 15));
 
-        SideBarPanel sidebarPanel = new SideBarPanel();
+        SideBarPanel sidebarPanel = new SideBarPanel(currentUser);
 
         JPanel center = new JPanel(new BorderLayout(15, 15));
         center.setOpaque(false);
 
-        PageHeaderPanel headerPanel = new PageHeaderPanel("PROFILE");
+        PageHeaderPanel headerPanel = new PageHeaderPanel("PROFILE", currentUser);
 
         center.add(headerPanel, BorderLayout.NORTH);
         center.add(createProfilePanel(), BorderLayout.CENTER);
@@ -128,7 +134,7 @@ public class ProfileWindow extends JFrame {
         btnEditProfile.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         btnEditProfile.addActionListener(e -> {
-            EditProfileWindow window = new EditProfileWindow(); 
+            EditProfileWindow window = new EditProfileWindow(currentUser); 
             window.setVisible(true);
             dispose();
 
@@ -152,7 +158,7 @@ public class ProfileWindow extends JFrame {
         btnChangePassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         btnChangePassword.addActionListener(e -> {
-            ForgotPasswordWindow window = new ForgotPasswordWindow(); 
+            ForgotPasswordWindow window = new ForgotPasswordWindow(currentUser); 
             window.setVisible(true);
             dispose();
         });

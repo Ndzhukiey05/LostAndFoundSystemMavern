@@ -4,6 +4,7 @@ package lostandfoundsystem.windows;
 import lostandfoundsystem.components.PageHeaderPanel;
 import lostandfoundsystem.components.SideBarPanel;
 import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.domain.User;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,8 @@ import javax.swing.border.LineBorder;
 
 public class Dashboard extends JFrame implements ActionListener, ItemListener {
 
+    private User currentUser;
+    
     private JPanel sidebarPanel;
     private JPanel topPanel;
     private JPanel contentPanel;
@@ -32,8 +35,10 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
         {"Backpack", "18-Jun-26", "Student Centre", "Claimed"},
         {"Calculator", "20-Jun-26", "Engineering Block", "Pending"}
     };
-
-    public Dashboard() {
+    
+    // Now able to access current user obj   
+    public Dashboard(User currentUser) {
+        this.currentUser = currentUser;
         guiSetUp();
     }
 
@@ -44,7 +49,7 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
         getContentPane().setBackground(new Color(73, 107, 145));
         setLayout(new BorderLayout(15, 15));
 
-        sidebarPanel = new SideBarPanel();
+        sidebarPanel = new SideBarPanel(currentUser);
         topPanel = createTopPanel();
         contentPanel = createContentPanel();
 
@@ -64,12 +69,12 @@ public class Dashboard extends JFrame implements ActionListener, ItemListener {
         JPanel top = new JPanel(new BorderLayout());
         top.setOpaque(false);
 
-        PageHeaderPanel header = new PageHeaderPanel("Dashboard");
+        PageHeaderPanel header = new PageHeaderPanel(" ", currentUser);
 
         header.getBtnHome().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Dashboard dashboard = new Dashboard();
+                Dashboard dashboard = new Dashboard(currentUser);
                 dashboard.setVisible(true);
                 dispose();
             }

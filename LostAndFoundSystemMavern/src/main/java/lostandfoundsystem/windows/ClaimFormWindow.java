@@ -8,6 +8,8 @@ import lostandfoundsystem.components.UIComponents;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 
+import lostandfoundsystem.domain.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,8 +25,11 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 public class ClaimFormWindow extends JFrame {
+    
+    private User currentUser;
 
-    public ClaimFormWindow() {
+    public ClaimFormWindow(User currentUser) {
+        this.currentUser = currentUser;
         super("Campus Finder - Claim Form");
         guiSetUp();
     }
@@ -38,12 +43,12 @@ public class ClaimFormWindow extends JFrame {
         getContentPane().setBackground(new Color(73, 107, 145));
         setLayout(new BorderLayout(15, 15));
 
-        SideBarPanel sidebarPanel = new SideBarPanel();
+        SideBarPanel sidebarPanel = new SideBarPanel(currentUser);
 
         JPanel center = new JPanel(new BorderLayout(15, 15));
         center.setOpaque(false);
 
-        PageHeaderPanel headerPanel = new PageHeaderPanel("CLAIM FORM");
+        PageHeaderPanel headerPanel = new PageHeaderPanel("CLAIM FORM", currentUser);
 
         center.add(headerPanel, BorderLayout.NORTH);
         center.add(createContentPanel(), BorderLayout.CENTER);
@@ -134,7 +139,7 @@ public class ClaimFormWindow extends JFrame {
         btnClaim.setPreferredSize(new Dimension(125, 38));
 
         btnBack.addActionListener(e -> {
-            new ClaimWindow();
+            new ClaimWindow(currentUser);
             dispose();
         });
 
@@ -146,7 +151,7 @@ public class ClaimFormWindow extends JFrame {
 
             JOptionPane.showMessageDialog(this, "Claim submitted successfully!", "Claim Submitted", JOptionPane.INFORMATION_MESSAGE);
 
-            new ClaimWindow();
+            new ClaimWindow(currentUser);
             dispose();
         });
 

@@ -5,20 +5,24 @@ import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 import lostandfoundsystem.components.UIComponents;
 
+import lostandfoundsystem.domain.User;
+
 import javax.swing.*;
 import java.awt.*;
+
 import java.util.regex.Pattern;
 
 public class ForgotPasswordWindow extends JFrame {
 
 //    private JPanel northPanel;
 //    private JLabel title;
+    private User currentUser;
     private UIComponents.RoundedTextField txtUsername;
     private UIComponents.RoundedTextField txtPetName;
     private UIComponents.RoundedPasswordField txtNewPassword;
     private UIComponents.RoundedPasswordField txtConfirmPassword;
 
-    public ForgotPasswordWindow() {
+    public ForgotPasswordWindow(User currentUser) {
 
 //        title = new JLabel("Forgot Password");
 //        northPanel = new JPanel();
@@ -97,7 +101,7 @@ public class ForgotPasswordWindow extends JFrame {
         btnCancel.setPreferredSize(new Dimension(110, 35));
         btnCancel.addActionListener(e -> {
             dispose();
-            new ProfileWindow().setVisible(true);
+            new ProfileWindow(currentUser).setVisible(true);
         });
 
         UIComponents.RoundedButton btnSave = new UIComponents.RoundedButton("Save Changes", Colors.WHITE_TEXT_COLOR, Colors.BLACK_TEXT_COLOR, 20);

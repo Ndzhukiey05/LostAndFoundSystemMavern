@@ -3,6 +3,9 @@ package lostandfoundsystem.components;
 import lostandfoundsystem.constants.Colors;
 import lostandfoundsystem.constants.Fonts;
 import lostandfoundsystem.constants.Icons;
+
+import lostandfoundsystem.domain.User;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -20,6 +23,8 @@ import lostandfoundsystem.windows.ViewAllPostsWindow;
 
 public class PageHeaderPanel extends JPanel {
 
+    private User currentUser;
+    
     private JLabel lblHeader;
 
     private JButton btnHome;
@@ -31,7 +36,9 @@ public class PageHeaderPanel extends JPanel {
     private JPanel titlePanel;
     private JPanel navigationPanel;
 
-    public PageHeaderPanel(String title) {
+    public PageHeaderPanel(String title, User currentUser) {
+        
+        this.currentUser = currentUser;
 
         setLayout(new BorderLayout(0, 10));
         setOpaque(false);
@@ -98,7 +105,7 @@ public class PageHeaderPanel extends JPanel {
 
     btnHome.addActionListener(e -> {
 
-        new Dashboard();
+        new Dashboard(currentUser);
 
         java.awt.Window window =
                 SwingUtilities.getWindowAncestor(this);
@@ -110,7 +117,7 @@ public class PageHeaderPanel extends JPanel {
 
     btnSearch.addActionListener(e -> {
 
-        new ViewAllPostsWindow();
+        new ViewAllPostsWindow(currentUser);
 
         java.awt.Window window =
                 SwingUtilities.getWindowAncestor(this);
@@ -134,7 +141,7 @@ public class PageHeaderPanel extends JPanel {
 
     txtSearch.addActionListener(e -> {
 
-        new ViewAllPostsWindow();
+        new ViewAllPostsWindow(currentUser);
 
         java.awt.Window window =
                 SwingUtilities.getWindowAncestor(this);
