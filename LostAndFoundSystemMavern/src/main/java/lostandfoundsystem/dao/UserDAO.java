@@ -1,17 +1,39 @@
 package lostandfoundsystem.dao;
 
-import lostandfoundsystem.domain.*;
-import lostandfoundsystem.connection.*;
-
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+import lostandfoundsystem.connection.DBConnection;
+import lostandfoundsystem.domain.Admin;
+import lostandfoundsystem.domain.Lecturer;
+import lostandfoundsystem.domain.Staff;
+import lostandfoundsystem.domain.Student;
+import lostandfoundsystem.domain.User;
 
 public class UserDAO {
 
+    private Connection con;
+    private Statement stmt;
+    private PreparedStatement pstmt;
+
+    public UserDAO() {
+        try {
+            con = DBConnection.derbyConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     // SAVES A STUDENT USER
-    public boolean saveStudent(Student student) {
+    public void saveStudent(Student student) {
+
+        int ok;
 
         String sql = "INSERT INTO USERS "
                 + "(name, surname, password, sec_question, sec_answer, role, student_number) "
@@ -25,21 +47,29 @@ public class UserDAO {
                 + student.getStudentNumber() + "')";
 
         try {
-            Connection conn = DBConnection.derbyConnection();
-            Statement stmt = conn.createStatement();
+            stmt = this.con.createStatement();
+            ok = stmt.executeUpdate(sql);
 
-            int result = stmt.executeUpdate(sql);
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null,
+                    "SQL Error: " + sqlException.getMessage());
 
-            return result > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        exception.getMessage());
+            }
         }
     }
 
     // SAVES A STAFF USER
-    public boolean saveStaff(Staff staff) {
+    public void saveStaff(Staff staff) {
+
+        int ok;
 
         String sql = "INSERT INTO USERS "
                 + "(name, surname, password, sec_question, sec_answer, role, employee_id, department) "
@@ -54,21 +84,29 @@ public class UserDAO {
                 + staff.getDepartment() + "')";
 
         try {
-            Connection conn = DBConnection.derbyConnection();
-            Statement stmt = conn.createStatement();
+            stmt = this.con.createStatement();
+            ok = stmt.executeUpdate(sql);
 
-            int result = stmt.executeUpdate(sql);
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null,
+                    "SQL Error: " + sqlException.getMessage());
 
-            return result > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        exception.getMessage());
+            }
         }
     }
 
     // SAVES A LECTURER USER
-    public boolean saveLecturer(Lecturer lecturer) {
+    public void saveLecturer(Lecturer lecturer) {
+
+        int ok;
 
         String sql = "INSERT INTO USERS "
                 + "(name, surname, password, sec_question, sec_answer, role, employee_id, department) "
@@ -83,21 +121,29 @@ public class UserDAO {
                 + lecturer.getDepartment() + "')";
 
         try {
-            Connection conn = DBConnection.derbyConnection();
-            Statement stmt = conn.createStatement();
+            stmt = this.con.createStatement();
+            ok = stmt.executeUpdate(sql);
 
-            int result = stmt.executeUpdate(sql);
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null,
+                    "SQL Error: " + sqlException.getMessage());
 
-            return result > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        exception.getMessage());
+            }
         }
     }
 
     // SAVES AN ADMIN USER
-    public boolean saveAdmin(Admin admin) {
+    public void saveAdmin(Admin admin) {
+
+        int ok;
 
         String sql = "INSERT INTO USERS "
                 + "(name, surname, password, sec_question, sec_answer, role, employee_id, department, access_level) "
@@ -113,33 +159,43 @@ public class UserDAO {
                 + admin.getAccessLevel() + ")";
 
         try {
-            Connection conn = DBConnection.derbyConnection();
-            Statement stmt = conn.createStatement();
+            stmt = this.con.createStatement();
+            ok = stmt.executeUpdate(sql);
 
-            int result = stmt.executeUpdate(sql);
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null,
+                    "SQL Error: " + sqlException.getMessage());
 
-            return result > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        exception.getMessage());
+            }
         }
     }
 
-    // AUTHENTICATES USER
+    // AUTHENTICATE USER
     public User login(String identifier, String password) {
 
         String sql = "SELECT * FROM USERS "
-                + "WHERE (student_number = '" + identifier + "' "
-                + "OR employee_id = '" + identifier + "' "
-                + "OR CAST(person_id AS VARCHAR(20)) = '" + identifier + "') "
-                + "AND password = '" + password + "'";
+                + "WHERE (student_number = ? "
+                + "OR employee_id = ? "
+                + "OR CAST(person_id AS VARCHAR(20)) = ?) "
+                + "AND password = ?";
 
         try {
-            Connection conn = DBConnection.derbyConnection();
-            Statement stmt = conn.createStatement();
+            pstmt = this.con.prepareStatement(sql);
 
-            ResultSet rs = stmt.executeQuery(sql);
+            pstmt.setString(1, identifier);
+            pstmt.setString(2, identifier);
+            pstmt.setString(3, identifier);
+            pstmt.setString(4, password);
+
+            ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
 
@@ -206,8 +262,21 @@ public class UserDAO {
                 }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            rs.close();
+
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null,
+                    "SQL Error: " + sqlException.getMessage());
+
+        } finally {
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        exception.getMessage());
+            }
         }
 
         return null;
