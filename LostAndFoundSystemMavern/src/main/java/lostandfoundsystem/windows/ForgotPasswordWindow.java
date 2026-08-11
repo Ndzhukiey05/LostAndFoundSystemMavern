@@ -1,9 +1,9 @@
 //240822757
-package windows;
+package lostandfoundsystem.windows;
 
-import constants.Colors;
-import constants.Fonts;
-import components.UIComponents;
+import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.constants.Fonts;
+import lostandfoundsystem.components.UIComponents;
 
 import javax.swing.*;
 import java.awt.*;

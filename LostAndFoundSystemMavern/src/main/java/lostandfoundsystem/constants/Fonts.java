@@ -1,5 +1,5 @@
 // 230939023
-package constants;
+package lostandfoundsystem.constants;
 import java.awt.Font;
 import java.io.InputStream;
 

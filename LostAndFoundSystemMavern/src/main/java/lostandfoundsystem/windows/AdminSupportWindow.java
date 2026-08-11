@@ -1,6 +1,6 @@
 //231323573
 
-package windows;
+package lostandfoundsystem.windows;
 
 import java.awt.*;
 import javax.swing.*;

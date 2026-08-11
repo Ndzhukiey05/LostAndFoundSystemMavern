@@ -1,11 +1,11 @@
 //230236901
 
-package windows;
+package lostandfoundsystem.windows;
 
-import components.PageHeaderPanel;
-import components.SideBarPanel;
-import constants.Colors;
-import constants.Fonts;
+import lostandfoundsystem.components.PageHeaderPanel;
+import lostandfoundsystem.components.SideBarPanel;
+import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.constants.Fonts;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

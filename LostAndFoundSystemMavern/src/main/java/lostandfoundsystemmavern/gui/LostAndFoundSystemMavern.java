@@ -2,9 +2,9 @@
 // WE EXPECT A USER TO LOG_IN OR SIGN_UP
 // THEREFORE WE USE THE LogInWindow AS OUR ENTRY POINT FOR THE APP
 // LOST AND FOUND PROJECT SETUP COMPLETE
-package za.ac.cput.lostandfoundsystemmavern;
+package lostandfoundsystemmavern.gui;
 import javax.swing.JFrame;
-import windows.Dashboard;
+import lostandfoundsystem.windows.Dashboard;
 public class LostAndFoundSystemMavern {
     public static void main(String[] args) {
         //Entry Point set to DASHBOARD until ready for testing and bug fixes       

@@ -1,9 +1,9 @@
 // 230939023
-package components;
+package lostandfoundsystem.components;
 
-import constants.Colors;
-import constants.Fonts;
-import constants.Icons;
+import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.constants.Fonts;
+import lostandfoundsystem.constants.Icons;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -20,12 +20,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 
-import windows.ClaimWindow;
-import windows.HelpWindow;
-import windows.ProfileWindow;
-import windows.ReportFoundItemWindow;
-import windows.ReportLostItemWindow;
-import windows.ViewAllPostsWindow;
+import lostandfoundsystem.windows.ClaimWindow;
+import lostandfoundsystem.windows.HelpWindow;
+import lostandfoundsystem.windows.ProfileWindow;
+import lostandfoundsystem.windows.ReportFoundItemWindow;
+import lostandfoundsystem.windows.ReportLostItemWindow;
+import lostandfoundsystem.windows.ViewAllPostsWindow;
 
 public class SideBarPanel extends JPanel {
 

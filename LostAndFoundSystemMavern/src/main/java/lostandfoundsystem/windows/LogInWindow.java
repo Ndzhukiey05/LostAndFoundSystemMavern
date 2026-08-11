@@ -1,9 +1,9 @@
 //230939023
-package windows;
+package lostandfoundsystem.windows;
 
 // CUSTOM IMPORTS
-import constants.Colors;
-import constants.Fonts;
+import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.constants.Fonts;
 
 import javax.swing.*;
 import java.awt.*;

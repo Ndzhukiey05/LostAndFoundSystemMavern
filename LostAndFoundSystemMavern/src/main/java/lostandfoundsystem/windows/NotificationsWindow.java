@@ -1,7 +1,7 @@
 // 230236901
-package windows;
+package lostandfoundsystem.windows;
 
-import constants.Fonts;
+import lostandfoundsystem.constants.Fonts;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;

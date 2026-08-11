@@ -1,5 +1,5 @@
 // @230939023 & 221106901
-package constants;
+package lostandfoundsystem.constants;
 
 import java.awt.Color;
 

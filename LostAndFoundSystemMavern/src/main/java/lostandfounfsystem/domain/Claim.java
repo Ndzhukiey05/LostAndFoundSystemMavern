@@ -3,10 +3,7 @@ package lostandfounfsystem.domain;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @23093023
- */
+//
 
 public class Claim {
     

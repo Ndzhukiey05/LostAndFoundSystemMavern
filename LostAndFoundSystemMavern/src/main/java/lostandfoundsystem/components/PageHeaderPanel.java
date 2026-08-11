@@ -1,8 +1,8 @@
-package components;
+package lostandfoundsystem.components;
 
-import constants.Colors;
-import constants.Fonts;
-import constants.Icons;
+import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.constants.Fonts;
+import lostandfoundsystem.constants.Icons;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -14,9 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import windows.Dashboard;
-import windows.NotificationsWindow;
-import windows.ViewAllPostsWindow;
+import lostandfoundsystem.windows.Dashboard;
+import lostandfoundsystem.windows.NotificationsWindow;
+import lostandfoundsystem.windows.ViewAllPostsWindow;
 
 public class PageHeaderPanel extends JPanel {
 

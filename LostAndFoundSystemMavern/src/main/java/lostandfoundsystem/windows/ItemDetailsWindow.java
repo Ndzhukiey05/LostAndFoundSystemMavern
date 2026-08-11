@@ -1,10 +1,10 @@
 // 221106901
-package windows;
+package lostandfoundsystem.windows;
 
-import components.UIComponents;
-import constants.Colors;
-import constants.Fonts;
-import constants.Icons;
+import lostandfoundsystem.components.UIComponents;
+import lostandfoundsystem.constants.Colors;
+import lostandfoundsystem.constants.Fonts;
+import lostandfoundsystem.constants.Icons;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
