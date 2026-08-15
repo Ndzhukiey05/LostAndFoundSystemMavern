@@ -82,11 +82,11 @@ public class EditProfileWindow extends JFrame {
         gbc.gridy = 3;
         gbc.gridx = 0;
         gbc.anchor = GridBagConstraints.EAST;
-        mainPanel.add(createLabel("Email:"), gbc);
-        txtEmail = new UIComponents.RoundedTextField(18);
+//        mainPanel.add(createLabel("Email:"), gbc);
+//        txtEmail = new UIComponents.RoundedTextField(18);
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        mainPanel.add(txtEmail, gbc);
+//        mainPanel.add(txtEmail, gbc);
 
         // Security Question Dropdown
         gbc.gridy = 4;
@@ -174,19 +174,19 @@ public class EditProfileWindow extends JFrame {
     private void validateAndSave() {
         String name = txtName.getText().trim();
         String surname = txtSurname.getText().trim();
-        String email = txtEmail.getText().trim();
+//        String email = txtEmail.getText().trim();
         int questionIndex = cbSecurityQuestions.getSelectedIndex();
         String securityQuestion = (String) cbSecurityQuestions.getSelectedItem();
 
-        if (name.isEmpty() || surname.isEmpty() || email.isEmpty()) {
+        if (name.isEmpty() || surname.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all text fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (!EMAIL_PATTERN.matcher(email).matches()) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+//        if (!EMAIL_PATTERN.matcher(email).matches()) {
+//            JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
 
         if (questionIndex <= 0) {
             JOptionPane.showMessageDialog(this, "Please select a valid security question.", "Validation Error", JOptionPane.ERROR_MESSAGE);

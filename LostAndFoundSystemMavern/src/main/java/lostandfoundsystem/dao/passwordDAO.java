@@ -31,24 +31,60 @@ public class passwordDAO {
         }
     }
     
-    public boolean updatePassword(Connection con, String id, String newPassword) {
-        String updatePassword = "UPDATE person_id SET password = ? WHERE person_id = ?";
-        
-        try (PreparedStatement pstmt = con.prepareStatement(updatePassword)) {
-            
-            pstmt.setString(1, newPassword);
-            pstmt.setString(2, id);
+public boolean updatePassword(Connection con,int personId,String securityQuestion,String securityAnswer,String newPassword) {
 
-            int rowsAffected = pstmt.executeUpdate();
+    String[] tables = {"STUDENT", "STAFF", "LECTURER", "ADMIN"};
 
-            return rowsAffected > 0;
+    try {
 
-        } catch (SQLException e) {
-            System.err.println("Database error while updating password: " + e.getMessage());
-            e.printStackTrace();
-            return false;
+        for (String table : tables) {
+
+            String findUser = "SELECT sec_question, sec_answer "
+                    + "FROM " + table
+                    + " WHERE person_id = ?";
+
+            try (PreparedStatement findStmt = con.prepareStatement(findUser)) {
+
+                findStmt.setInt(1, personId);
+
+                ResultSet rs = findStmt.executeQuery();
+
+                if (rs.next()) {
+
+                    String storedQuestion = rs.getString("sec_question");
+                    String storedAnswer = rs.getString("sec_answer");
+
+                    if (storedQuestion.equals(securityQuestion)
+                            && storedAnswer.equalsIgnoreCase(securityAnswer)) {
+
+                        String updateSql = "UPDATE " + table
+                                + " SET password = ? WHERE person_id = ?";
+
+                        try (PreparedStatement updateStmt = con.prepareStatement(updateSql)) {
+
+                            updateStmt.setString(1, newPassword);
+                            updateStmt.setInt(2, personId);
+
+                            return updateStmt.executeUpdate() > 0;
+                        }
+                    }
+
+                    // User exists in this role table but security details are incorrect.
+                    return false;
+                }
+
+                rs.close();
+            }
         }
-    }    
+
+    } catch (SQLException e) {
+
+        System.err.println("Database error while updating password: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    return false;
+}  
     
     private void closeStatement() {
         try {
