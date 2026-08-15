@@ -245,7 +245,7 @@ public class ProfileWindow extends JFrame {
     }
 
     private void loadUserProfileData() {
-
+    System.out.println(currentUser.getClass().getName());
     txtFullName.setText(
             currentUser.getName() + " " + currentUser.getSurname()
     );
@@ -257,9 +257,9 @@ public class ProfileWindow extends JFrame {
     } else if (currentUser instanceof lostandfoundsystem.domain.Lecturer) {
         role = "Lecturer";
     } else if (currentUser instanceof lostandfoundsystem.domain.Staff) {
-        role = "Staff";
-    } else if (currentUser instanceof lostandfoundsystem.domain.Admin) {
         role = "Admin";
+    } else if (currentUser instanceof lostandfoundsystem.domain.Admin) {
+        role = "Staff";
     }
 
     txtRole.setText(role);
