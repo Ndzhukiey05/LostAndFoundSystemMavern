@@ -36,7 +36,6 @@ public class ProfileWindow extends JFrame {
 
     private User currentUser;
     private JTextField txtFullName;
-    private JTextField txtEmail;
     private JTextField txtRole;
 
     public ProfileWindow(User currentUser) {
@@ -98,23 +97,23 @@ public class ProfileWindow extends JFrame {
 
         profileCard.add(lblAvatar, gbc);
 
-        JLabel lblProfileName = new JLabel("John Doe", SwingConstants.CENTER);
+//        JLabel lblProfileName = new JLabel("John Doe", SwingConstants.CENTER);
 
-        lblProfileName.setFont(Fonts.Bold.deriveFont(20f));
-        lblProfileName.setForeground(Colors.DARK_BLUE_TEXT_COLOR);
+//        lblProfileName.setFont(Fonts.Bold.deriveFont(20f));
+//        lblProfileName.setForeground(Colors.DARK_BLUE_TEXT_COLOR);
 
         gbc.gridy = 1;
 
-        profileCard.add(lblProfileName, gbc);
+//        profileCard.add(lblProfileName, gbc);
 
-        JLabel lblRole = new JLabel("Student", SwingConstants.CENTER);
+//        JLabel lblRole = new JLabel("Student", SwingConstants.CENTER);
 
-        lblRole.setFont(Fonts.Regular.deriveFont(13f));
-        lblRole.setForeground(Colors.BLACK_TEXT_COLOR);
+//        lblRole.setFont(Fonts.Regular.deriveFont(13f));
+//        lblRole.setForeground(Colors.BLACK_TEXT_COLOR);
 
         gbc.gridy = 2;
 
-        profileCard.add(lblRole, gbc);
+//        profileCard.add(lblRole, gbc);
 
         JPanel informationPanel = new JPanel(new GridLayout(3, 1, 0, 8));
 
@@ -124,11 +123,9 @@ public class ProfileWindow extends JFrame {
 //        informationPanel.add(createProfileField("johndoe123@gmail.com"));
 //        informationPanel.add(createProfileField("Student"));
         txtFullName = createProfileField("Loading...");
-        txtEmail = createProfileField("Loading...");
         txtRole = createProfileField("Loading...");
 
         informationPanel.add(txtFullName);
-        informationPanel.add(txtEmail);
         informationPanel.add(txtRole);
 
         gbc.gridy = 3;
@@ -173,7 +170,7 @@ public class ProfileWindow extends JFrame {
         btnChangePassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         btnChangePassword.addActionListener(e -> {
-            ForgotPasswordWindow window = new ForgotPasswordWindow(currentUser);
+            ForgotPasswordWindow window = new ForgotPasswordWindow();
             window.setVisible(true);
             dispose();
         });
@@ -248,17 +245,25 @@ public class ProfileWindow extends JFrame {
     }
 
     private void loadUserProfileData() {
-        ProfileDAO profileDAO = new ProfileDAO();
-        java.util.Map<String, String> userData = profileDAO.getUserProfile(currentUser.getPersonId());
 
-        if (!userData.isEmpty()) {
-            txtFullName.setText(userData.getOrDefault("fullName", "N/A"));
-            txtEmail.setText(userData.getOrDefault("email", "N/A"));
-            txtRole.setText(userData.getOrDefault("role", "Student"));
-        } else {
-            JOptionPane.showMessageDialog(this, "Could not load user data.", "Database Error", JOptionPane.ERROR_MESSAGE);
-        }
+    txtFullName.setText(
+            currentUser.getName() + " " + currentUser.getSurname()
+    );
+
+    String role = "User";
+
+    if (currentUser instanceof lostandfoundsystem.domain.Student) {
+        role = "Student";
+    } else if (currentUser instanceof lostandfoundsystem.domain.Lecturer) {
+        role = "Lecturer";
+    } else if (currentUser instanceof lostandfoundsystem.domain.Staff) {
+        role = "Staff";
+    } else if (currentUser instanceof lostandfoundsystem.domain.Admin) {
+        role = "Admin";
     }
+
+    txtRole.setText(role);
+}
 
     private void confirmAndDeleteAccount() {
         int choice = JOptionPane.showConfirmDialog(
@@ -271,7 +276,7 @@ public class ProfileWindow extends JFrame {
 
         if (choice == JOptionPane.YES_OPTION) {
             ProfileDAO profileDAO = new ProfileDAO();
-            boolean success = profileDAO.deleteUserAccount(currentUser.getPersonId());
+            boolean success = profileDAO.deleteUserAccount(currentUser);
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Account successfully deleted.", "Account Removed", JOptionPane.INFORMATION_MESSAGE);

@@ -7,6 +7,8 @@ import lostandfoundsystem.components.UIComponents;
 
 import lostandfoundsystem.domain.User;
 
+import lostandfoundsystem.windows.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,7 +29,7 @@ public class ForgotPasswordWindow extends JFrame {
     private UIComponents.RoundedPasswordField txtNewPassword;
     private UIComponents.RoundedPasswordField txtConfirmPassword;
 
-    public ForgotPasswordWindow(User currentUser) {
+    public ForgotPasswordWindow() {
 
 //        title = new JLabel("Forgot Password");
 //        northPanel = new JPanel();
@@ -105,8 +107,8 @@ public class ForgotPasswordWindow extends JFrame {
         UIComponents.RoundedButton btnCancel = new UIComponents.RoundedButton("Cancel", Colors.BLACK_BUTTON_COLOR, Colors.WHITE_TEXT_COLOR, 20);
         btnCancel.setPreferredSize(new Dimension(110, 35));
         btnCancel.addActionListener(e -> {
+            new LogInWindow().setVisible(true);
             dispose();
-            new ProfileWindow(currentUser).setVisible(true);
         });
 
         UIComponents.RoundedButton btnSave = new UIComponents.RoundedButton("Save Changes", Colors.WHITE_TEXT_COLOR, Colors.BLACK_TEXT_COLOR, 20);

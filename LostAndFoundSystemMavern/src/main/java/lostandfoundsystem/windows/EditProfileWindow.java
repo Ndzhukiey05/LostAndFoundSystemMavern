@@ -200,7 +200,7 @@ public class EditProfileWindow extends JFrame {
         new ProfileWindow(currentUser).setVisible(true);
 
         ProfileDAO profileDAO = new ProfileDAO();
-        boolean updated = profileDAO.updateUserProfile(currentUser, name, surname, email, securityQuestion);
+        boolean updated = profileDAO.updateUserProfile(currentUser, name, surname, securityQuestion);
 
         if (updated) {
             JOptionPane.showMessageDialog(this, "Profile updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);

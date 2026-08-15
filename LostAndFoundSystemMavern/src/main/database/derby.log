@@ -1,20 +1,14 @@
-Thu Aug 13 17:34:13 SAST 2026 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+Sat Aug 15 16:48:58 SAST 2026 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Thu Aug 13 17:34:20 SAST 2026:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-019f-fbc2-74d5-00002f448fd4 
-on database directory C:\Users\jermy\OneDrive\Documents\NetBeansProjects\LostAndFoundSystemMavern\LostAndFoundSystemMavern\src\main\database\LostAndFoundDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
-Loaded from file:/C:/Users/jermy/Java/jdk-17/Derby/db-derby-10.14.2.0-bin/lib/derby.jar
+Sat Aug 15 16:49:01 SAST 2026:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-01a0-05e5-bec8-ffffe4d3cb00 
+on database directory D:\LostAndFoundSystemMavern\LostAndFoundSystemMavern\src\main\database\LostAndFoundDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e 
+Loaded from file:/C:/Program%20Files/Java/jdk-23/Db/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=17.0.12+8-LTS-286
-user.dir=C:\Users\jermy\Java\jdk-17\Derby\db-derby-10.14.2.0-bin
+java.runtime.version=23.0.2+7-58
+user.dir=C:\Program Files\Java\jdk-23\Db\db-derby-10.14.2.0-bin
 os.name=Windows 11
 os.arch=amd64
 os.version=10.0
-derby.system.home=C:\Users\jermy\OneDrive\Documents\NetBeansProjects\LostAndFoundSystemMavern\LostAndFoundSystemMavern\src\main\database
+derby.system.home=D:\LostAndFoundSystemMavern\LostAndFoundSystemMavern\src\main\database
 Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Fri Aug 14 02:18:30 SAST 2026: Shutting down Derby engine
-----------------------------------------------------------------
-Fri Aug 14 02:18:30 SAST 2026:
-Shutting down instance a816c00e-019f-fbc2-74d5-00002f448fd4 on database directory C:\Users\jermy\OneDrive\Documents\NetBeansProjects\LostAndFoundSystemMavern\LostAndFoundSystemMavern\src\main\database\LostAndFoundDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
-----------------------------------------------------------------

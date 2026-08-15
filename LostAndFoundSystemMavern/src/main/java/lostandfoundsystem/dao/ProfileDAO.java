@@ -1,8 +1,7 @@
 package lostandfoundsystem.dao;
 
-// 240822757
+//240822757
 
-import lostandfoundsystem.connection.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,82 +9,133 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import lostandfoundsystem.connection.DBConnection;
+import lostandfoundsystem.domain.Admin;
+import lostandfoundsystem.domain.Lecturer;
+import lostandfoundsystem.domain.Staff;
+import lostandfoundsystem.domain.Student;
 import lostandfoundsystem.domain.User;
 
 public class ProfileDAO {
-    
-    public boolean updateUserProfile(User currentUser, String name, String surname, String email, String securityQuestion) {
-        String query = "UPDATE users SET first_name = ?, last_name = ?, email = ?, security_question = ? WHERE username = ?";
+
+    private String getTableName(User user) {
+
+        if (user instanceof Student) {
+            return "STUDENT";
+        }
+
+        if (user instanceof Lecturer) {
+            return "LECTURER";
+        }
+
+        if (user instanceof Staff) {
+            return "STAFF";
+        }
+
+        if (user instanceof Admin) {
+            return "ADMIN";
+        }
+
+        return null;
+    }
+
+    public boolean updateUserProfile(User currentUser,
+            String name,
+            String surname,
+            String securityQuestion) {
+
+        String table = getTableName(currentUser);
+
+        if (table == null) {
+            return false;
+        }
+
+        String query = "UPDATE " + table
+                + " SET name=?, surname=?, sec_question=? "
+                + "WHERE person_id=?";
 
         try (Connection conn = DBConnection.derbyConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, name);
             stmt.setString(2, surname);
-            stmt.setString(3, email);
-            stmt.setString(4, securityQuestion);
-            stmt.setInt(5, currentUser.getPersonId());
+            stmt.setString(3, securityQuestion);
+            stmt.setInt(4, currentUser.getPersonId());
 
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+            return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
+
             e.printStackTrace();
             return false;
         }
     }
-    
-    public Map<String, String> getUserProfile(int userId) {
+
+    public Map<String, String> getUserProfile(User currentUser) {
+
         Map<String, String> userData = new HashMap<>();
-        String query = "SELECT first_name, last_name, email, role FROM users WHERE user_id = ?";
+
+        String table = getTableName(currentUser);
+
+        if (table == null) {
+            return userData;
+        }
+
+        String query = "SELECT name, surname FROM "
+                + table
+                + " WHERE person_id=?";
 
         try (Connection conn = DBConnection.derbyConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, userId);
+            stmt.setInt(1, currentUser.getPersonId());
+
             try (ResultSet rs = stmt.executeQuery()) {
+
                 if (rs.next()) {
-                    String fullName = rs.getString("first_name") + " " + rs.getString("last_name");
-                    userData.put("fullName", fullName);
-                    userData.put("email", rs.getString("email"));
-                    userData.put("role", rs.getString("role"));
+
+                    userData.put(
+                            "fullName",
+                            rs.getString("name")
+                            + " "
+                            + rs.getString("surname")
+                    );
+
+                    userData.put("role", table);
                 }
             }
+
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
+
         return userData;
     }
-    
-    // Option A: Soft Delete (Deactivation - Recommended)
-    public boolean deactivateUserAccount(int userId) {
-        String query = "UPDATE users SET is_active = false WHERE user_id = ?";
+
+    public boolean deleteUserAccount(User currentUser) {
+
+        String table = getTableName(currentUser);
+
+        if (table == null) {
+            return false;
+        }
+
+        String query = "DELETE FROM "
+                + table
+                + " WHERE person_id=?";
 
         try (Connection conn = DBConnection.derbyConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, userId);
+            stmt.setInt(1, currentUser.getPersonId());
+
             return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
+
             e.printStackTrace();
             return false;
         }
     }
-    
-    public boolean deleteUserAccount(int userId) {
-        String query = "DELETE FROM users WHERE user_id = ?";
-
-        try (Connection conn = DBConnection.derbyConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            stmt.setInt(1, userId);
-            return stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    
 }

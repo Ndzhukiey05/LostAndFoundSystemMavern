@@ -129,7 +129,7 @@ public class LogInWindow extends JFrame implements ActionListener {
         }
         
         if (e.getSource() == btnForgotPassword) {
-            new ForgotPasswordWindow(currentUser).setVisible(true);
+            new ForgotPasswordWindow().setVisible(true);
             dispose();
             return;
         }
@@ -165,7 +165,7 @@ public class LogInWindow extends JFrame implements ActionListener {
 
             // LOGIN
             UserDAO UserDAO = new UserDAO();
-            User currentUser = UserDAO.login(
+            currentUser = UserDAO.login(
                     personId,
                     password,
                     userType
