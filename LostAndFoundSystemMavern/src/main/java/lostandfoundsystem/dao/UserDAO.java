@@ -23,10 +23,8 @@ public class UserDAO {
     private PreparedStatement pstmt;
 
     public UserDAO() {
-
         try {
             con = DBConnection.derbyConnection();
-
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(
                     Level.SEVERE,
@@ -43,9 +41,7 @@ public class UserDAO {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
-
             pstmt = con.prepareStatement(sql);
-
             pstmt.setInt(1, student.getPersonId());
             pstmt.setString(2, student.getName());
             pstmt.setString(3, student.getSurname());
@@ -53,22 +49,15 @@ public class UserDAO {
             pstmt.setString(5, student.getSecQuestion());
             pstmt.setString(6, student.getSecAnswer());
             pstmt.setString(7, student.getStudentNumber());
-
             int rowsAffected = pstmt.executeUpdate();
-
             return rowsAffected > 0;
-
         } catch (SQLException ex) {
-
             JOptionPane.showMessageDialog(
                     null,
                     "SQL Error: " + ex.getMessage()
             );
-
             return false;
-
         } finally {
-
             closeStatement();
         }
     }
@@ -80,9 +69,7 @@ public class UserDAO {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-
             pstmt = con.prepareStatement(sql);
-
             pstmt.setInt(1, staff.getPersonId());
             pstmt.setString(2, staff.getName());
             pstmt.setString(3, staff.getSurname());
@@ -91,22 +78,15 @@ public class UserDAO {
             pstmt.setString(6, staff.getSecAnswer());
             pstmt.setString(7, staff.getEmployeeId());
             pstmt.setString(8, staff.getDepartment());
-
             int rowsAffected = pstmt.executeUpdate();
-
             return rowsAffected > 0;
-
         } catch (SQLException ex) {
-
             JOptionPane.showMessageDialog(
                     null,
                     "SQL Error: " + ex.getMessage()
             );
-
             return false;
-
         } finally {
-
             closeStatement();
         }
     }
@@ -118,9 +98,7 @@ public class UserDAO {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-
             pstmt = con.prepareStatement(sql);
-
             pstmt.setInt(1, lecturer.getPersonId());
             pstmt.setString(2, lecturer.getName());
             pstmt.setString(3, lecturer.getSurname());
@@ -129,22 +107,15 @@ public class UserDAO {
             pstmt.setString(6, lecturer.getSecAnswer());
             pstmt.setString(7, lecturer.getEmployeeId());
             pstmt.setString(8, lecturer.getDepartment());
-
             int rowsAffected = pstmt.executeUpdate();
-
             return rowsAffected > 0;
-
         } catch (SQLException ex) {
-
             JOptionPane.showMessageDialog(
                     null,
                     "SQL Error: " + ex.getMessage()
             );
-
             return false;
-
         } finally {
-
             closeStatement();
         }
     }
@@ -158,7 +129,6 @@ public class UserDAO {
         try {
 
             pstmt = con.prepareStatement(sql);
-
             pstmt.setInt(1, admin.getPersonId());
             pstmt.setString(2, admin.getName());
             pstmt.setString(3, admin.getSurname());
@@ -168,22 +138,15 @@ public class UserDAO {
             pstmt.setString(7, admin.getEmployeeId());
             pstmt.setString(8, admin.getDepartment());
             pstmt.setInt(9, admin.getAccessLevel());
-
             int rowsAffected = pstmt.executeUpdate();
-
             return rowsAffected > 0;
-
         } catch (SQLException ex) {
-
             JOptionPane.showMessageDialog(
                     null,
                     "SQL Error: " + ex.getMessage()
             );
-
             return false;
-
         } finally {
-
             closeStatement();
         }
     }
@@ -191,7 +154,6 @@ public class UserDAO {
     public User login(int personId, String password, String userType) {
 
         String tableName = userType.toUpperCase();
-
         String sql = "SELECT * FROM " + tableName
                 + " WHERE person_id = ? AND password = ?";
 

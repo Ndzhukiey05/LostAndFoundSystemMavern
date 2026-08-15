@@ -7,10 +7,17 @@ import lostandfoundsystem.components.UIComponents;
 
 import lostandfoundsystem.domain.User;
 
+import lostandfoundsystem.windows.*;
+
 import javax.swing.*;
 import java.awt.*;
 
 import java.util.regex.Pattern;
+
+import lostandfoundsystem.dao.passwordDAO;
+import lostandfoundsystem.connection.DBConnection;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class ForgotPasswordWindow extends JFrame {
 
@@ -22,7 +29,7 @@ public class ForgotPasswordWindow extends JFrame {
     private UIComponents.RoundedPasswordField txtNewPassword;
     private UIComponents.RoundedPasswordField txtConfirmPassword;
 
-    public ForgotPasswordWindow(User currentUser) {
+    public ForgotPasswordWindow() {
 
 //        title = new JLabel("Forgot Password");
 //        northPanel = new JPanel();
@@ -100,8 +107,8 @@ public class ForgotPasswordWindow extends JFrame {
         UIComponents.RoundedButton btnCancel = new UIComponents.RoundedButton("Cancel", Colors.BLACK_BUTTON_COLOR, Colors.WHITE_TEXT_COLOR, 20);
         btnCancel.setPreferredSize(new Dimension(110, 35));
         btnCancel.addActionListener(e -> {
+            new LogInWindow().setVisible(true);
             dispose();
-            new ProfileWindow(currentUser).setVisible(true);
         });
 
         UIComponents.RoundedButton btnSave = new UIComponents.RoundedButton("Save Changes", Colors.WHITE_TEXT_COLOR, Colors.BLACK_TEXT_COLOR, 20);
@@ -149,8 +156,28 @@ public class ForgotPasswordWindow extends JFrame {
             return;
         }
 
-        JOptionPane.showMessageDialog(this, "Password updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-        new LogInWindow().setVisible(true);
+        try (Connection conn = DBConnection.derbyConnection()) {
+
+            passwordDAO passwordDAO = new passwordDAO();
+
+            // Calls updatePassword(Connection, String id, String newPassword)
+            boolean updateSuccess = passwordDAO.updatePassword(conn, username, password);
+
+            if (updateSuccess) {
+                JOptionPane.showMessageDialog(this, "Password updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                new LogInWindow().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "User ID not found or update failed.", "Database Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database connection failed: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+//        JOptionPane.showMessageDialog(this, "Password updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+//        dispose();
+//        new LogInWindow().setVisible(true);
     }
 }

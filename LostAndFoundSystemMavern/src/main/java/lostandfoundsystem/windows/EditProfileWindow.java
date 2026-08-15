@@ -12,13 +12,14 @@ import java.awt.*;
 import java.io.File;
 import java.util.regex.Pattern;
 
+import lostandfoundsystem.dao.ProfileDAO;
+
 public class EditProfileWindow extends JFrame {
 
 //    private JPanel northPanel;
 //    private JLabel title;
-    
     private User currentUser;
-    
+
     private UIComponents.RoundedTextField txtName;
     private UIComponents.RoundedTextField txtSurname;
     private UIComponents.RoundedTextField txtEmail;
@@ -175,6 +176,7 @@ public class EditProfileWindow extends JFrame {
         String surname = txtSurname.getText().trim();
         String email = txtEmail.getText().trim();
         int questionIndex = cbSecurityQuestions.getSelectedIndex();
+        String securityQuestion = (String) cbSecurityQuestions.getSelectedItem();
 
         if (name.isEmpty() || surname.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all text fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
@@ -196,6 +198,17 @@ public class EditProfileWindow extends JFrame {
         // Dispose EditProfileWindow and re-open ProfileWindow
         dispose();
         new ProfileWindow(currentUser).setVisible(true);
+
+        ProfileDAO profileDAO = new ProfileDAO();
+        boolean updated = profileDAO.updateUserProfile(currentUser, name, surname, securityQuestion);
+
+        if (updated) {
+            JOptionPane.showMessageDialog(this, "Profile updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+            new ProfileWindow(currentUser).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to update profile. Please check database connection.", "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
 
