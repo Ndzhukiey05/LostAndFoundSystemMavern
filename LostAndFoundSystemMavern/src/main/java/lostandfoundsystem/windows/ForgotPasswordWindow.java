@@ -12,6 +12,11 @@ import java.awt.*;
 
 import java.util.regex.Pattern;
 
+import lostandfoundsystem.dao.passwordDAO;
+import lostandfoundsystem.connection.DBConnection;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class ForgotPasswordWindow extends JFrame {
 
 //    private JPanel northPanel;
@@ -149,8 +154,28 @@ public class ForgotPasswordWindow extends JFrame {
             return;
         }
 
-        JOptionPane.showMessageDialog(this, "Password updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-        new LogInWindow().setVisible(true);
+        try (Connection conn = DBConnection.derbyConnection()) {
+
+            passwordDAO passwordDAO = new passwordDAO();
+
+            // Calls updatePassword(Connection, String id, String newPassword)
+            boolean updateSuccess = passwordDAO.updatePassword(conn, username, password);
+
+            if (updateSuccess) {
+                JOptionPane.showMessageDialog(this, "Password updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                new LogInWindow().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "User ID not found or update failed.", "Database Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database connection failed: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+//        JOptionPane.showMessageDialog(this, "Password updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+//        dispose();
+//        new LogInWindow().setVisible(true);
     }
 }

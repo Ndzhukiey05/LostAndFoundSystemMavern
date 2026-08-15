@@ -31,13 +31,13 @@ public class passwordDAO {
         }
     }
     
-    public boolean updatePassword(Connection con, String userEmail, String newPassword) {
-        String updatePassword = "UPDATE person_id SET password = ? WHERE email = ?";
+    public boolean updatePassword(Connection con, String id, String newPassword) {
+        String updatePassword = "UPDATE person_id SET password = ? WHERE person_id = ?";
         
         try (PreparedStatement pstmt = con.prepareStatement(updatePassword)) {
             
             pstmt.setString(1, newPassword);
-            pstmt.setString(2, userEmail);
+            pstmt.setString(2, id);
 
             int rowsAffected = pstmt.executeUpdate();
 
