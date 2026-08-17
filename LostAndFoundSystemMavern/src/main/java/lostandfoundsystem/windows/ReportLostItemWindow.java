@@ -22,8 +22,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -35,6 +39,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import lostandfoundsystem.dao.LostItemDAO;
+import lostandfoundsystem.domain.Item;
+import lostandfoundsystem.domain.Report;
+
 
 public class ReportLostItemWindow extends JFrame implements ActionListener, MouseListener {
     
@@ -62,14 +70,19 @@ public class ReportLostItemWindow extends JFrame implements ActionListener, Mous
 
     private javax.swing.ImageIcon originalImage;
     private JFileChooser fileChooser;
+    private String imagePath = "";
 
+    Item item = new Item();
+    LostItemDAO itemDao = new LostItemDAO();
+    Report report = new Report();
+    
     public ReportLostItemWindow(User currentUser) {
         this.currentUser = currentUser;
         super("Campus Finder - Report Lost Item");
         guiSetUp();
     }
 
-    private void guiSetUp() {
+    private void guiSetUp() { 
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -291,6 +304,116 @@ public class ReportLostItemWindow extends JFrame implements ActionListener, Mous
 
         originalImage = null;
     }
+    
+    public void submitReport(){
+       
+        String itemName = nameField.getText();
+        String date = dateField.getText();
+        String location = locationField.getText();
+        String description = descriptionArea.getText();
+        String category = categories.getSelectedItem().toString();
+        
+        
+        try{
+            Integer.parseInt(itemName);
+            return;
+        }
+        
+        catch(NumberFormatException e){
+            
+        }
+        
+         try{
+            Integer.parseInt(date);
+            return;
+        }
+        
+        catch(NumberFormatException e){
+            
+        }
+         
+          try{
+            Integer.parseInt(location);
+            return;
+        }
+        
+        catch(NumberFormatException e){
+            
+        }
+          
+           try{
+            Integer.parseInt(description);
+            return;
+        }
+        
+        catch(NumberFormatException e){
+            
+        }
+           
+           if(itemName.equals("")){
+               JOptionPane.showMessageDialog(this, "Please enter the item name",null, JOptionPane.WARNING_MESSAGE);
+               return;
+           }
+           
+           if(category.equals("Select category")){
+               JOptionPane.showMessageDialog(this, "Please select category",null, JOptionPane.WARNING_MESSAGE);
+               return;
+           }
+           
+           if(date.equals("")){
+               JOptionPane.showMessageDialog(this, "Please enter the date you lost you item",null, JOptionPane.WARNING_MESSAGE);
+               return;
+           }
+           
+           if(description.equals("")){
+               JOptionPane.showMessageDialog(this, "Please describe your item",null, JOptionPane.WARNING_MESSAGE);
+               return;
+           }
+           
+           if(location.equals("")){
+               JOptionPane.showMessageDialog(this, "Please specify the location",null, JOptionPane.WARNING_MESSAGE);
+               return;
+           }
+           
+           if(originalImage==null){
+               return;
+           }
+        
+        item.setItemName(itemName);
+        item.setCategory(category);
+        item.setDescription(description);
+        item.setStatus("Pending");
+        report.setLocation(location);
+        report.setItemType("Lost");
+         report.setDateLost(date);
+        try {
+              byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
+             report.setImageData(imageBytes);
+          } catch (IOException e) {
+           JOptionPane.showMessageDialog(this, "Error reading image file: " + e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        return;
+         }
+       
+        
+        itemDao.submitReport(item,report,currentUser);
+        
+      
+        
+       nameField.setText("");
+        dateField.setText("");
+        locationField.setText("");
+        descriptionArea.setText("");
+
+        categories.setSelectedIndex(0);
+
+        imageSpaceLbl.setIcon(null);
+        imageSpaceLbl.setText("No image selected");
+
+        originalImage = null;  
+        
+        
+        
+    }
 
     private void uploadImage() {
 
@@ -301,23 +424,32 @@ public class ReportLostItemWindow extends JFrame implements ActionListener, Mous
         if (response == JFileChooser.APPROVE_OPTION) {
             
             File file = fileChooser.getSelectedFile();
-            
-            originalImage = new javax.swing.ImageIcon(file.getAbsolutePath());
+            imagePath = file.getAbsolutePath();
+            originalImage = new javax.swing.ImageIcon(imagePath);
             Image scaledImage = originalImage.getImage().getScaledInstance(320,180,Image.SCALE_SMOOTH);
             
             javax.swing.ImageIcon scaledIcon =new javax.swing.ImageIcon(scaledImage);
             imageSpaceLbl.setText("");
             imageSpaceLbl.setIcon(scaledIcon);
+            
+            Image prevImage = originalImage.getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH);
+            originalImage = new ImageIcon(prevImage);
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+          
 
         if (e.getSource() == cancelBtn) {
             clearForm();
         } else if (e.getSource() == subBtn) {
-            JOptionPane.showMessageDialog(this, "Lost item reported successfully.", "Report Lost Item",JOptionPane.INFORMATION_MESSAGE);
+            
+            submitReport();
+            
+            
+            
         } else if (e.getSource() == uploadBtn) {
             uploadImage();
         }
